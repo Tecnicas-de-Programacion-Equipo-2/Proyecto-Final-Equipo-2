@@ -1,8 +1,8 @@
 from Views.ViewContainer import ViewContainer
-#from Views.StartView import StartView
+from Views.ViewHome import ViewHome
 #from Views.ViewOne import ViewOne
 #from Views.ViewTwo import ViewTwo
-#from CostomeType.View import View
+from CustomType.View import View
 from serial import Serial
 from serial.tools import list_ports
 
@@ -16,18 +16,19 @@ class MainApp():
         self.__arduino = Serial('COM4', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
+        self.home = ViewHome(self.__master.container, change_view_handler=self.__did_change_view)
         #start = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
         #one = ViewOne(self.__master.container, change_view_hadler=self.__did_change_view)
         #two = ViewTwo(self.__master.container, change_view_hadler=self.__did_change_view)
 
-        #self.__frames = {
-        #    View.Start: start,
+        self.__frames = {
+            View.Home: self.home
         #    View.One: one,
         #    View.Two: two
-        #}
+        }
 
-        #self.__master.set_views(self.__frames.values())
-        #self.__did_change_view(View.Start)
+        self.__master.set_views(self.__frames.values())
+        self.__did_change_view(View.Home)
 
     def run(self):
         self.__update_clock()
@@ -56,9 +57,9 @@ class MainApp():
             print("Encender Ventiladores")
             print("Temperature: ", temperature)
 
-    #def __did_change_view(self, view):
-    #    frame = self.__frames[view]
-    #    frame.tkraise()
+    def __did_change_view(self, view):
+        frame = self.__frames[view]
+        frame.tkraise()
 
 if __name__ == "__main__":
     app = MainApp()
