@@ -1,7 +1,6 @@
 from Views.ViewContainer import ViewContainer
 from Views.ViewHome import ViewHome
-#from Views.ViewOne import ViewOne
-#from Views.ViewTwo import ViewTwo
+from Views.ViewTemperature import ViewTemperature
 from CustomType.View import View
 from serial import Serial
 from serial.tools import list_ports
@@ -17,14 +16,11 @@ class MainApp():
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.home = ViewHome(self.__master.container, change_view_handler=self.__did_change_view)
-        #start = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
-        #one = ViewOne(self.__master.container, change_view_hadler=self.__did_change_view)
-        #two = ViewTwo(self.__master.container, change_view_hadler=self.__did_change_view)
+        self.temperature = ViewTemperature(self.__master.container, change_view_handler=self.__did_change_view)
 
         self.__frames = {
-            View.Home: self.home
-        #    View.One: one,
-        #    View.Two: two
+            View.Home: self.home,
+            View.Temperature: self.temperature
         }
 
         self.__master.set_views(self.__frames.values())
@@ -52,6 +48,7 @@ class MainApp():
             temperature = int(clean_values[0])
         except Exception:
             return
+        self.temperature.update_temperatures(temperature)
         if temperature >= 28:
             print("******************" * 5)
             print("Encender Ventiladores")
