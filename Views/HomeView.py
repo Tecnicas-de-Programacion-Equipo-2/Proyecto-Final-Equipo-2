@@ -1,7 +1,7 @@
 from tkinter import Frame, Label, Button
 from CustomType.View import View
 
-class ViewHome(Frame):
+class HomeView(Frame):
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
 

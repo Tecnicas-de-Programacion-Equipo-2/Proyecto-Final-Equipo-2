@@ -1,6 +1,6 @@
-from Views.ViewContainer import ViewContainer
-from Views.ViewHome import ViewHome
-from Views.ViewTemperature import ViewTemperature
+from Views.ContainerView import ContainerView
+from Views.HomeView import HomeView
+from Views.TemperatureView import TemperatureView
 from CustomType.View import View
 from serial import Serial
 from serial.tools import list_ports
@@ -11,12 +11,12 @@ class MainApp():
         for port in list_ports.comports():
             print(port.device, port.name, port.description)
 
-        self.__master = ViewContainer()
+        self.__master = ContainerView()
         self.__arduino = Serial('COM4', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
-        self.home = ViewHome(self.__master.container, change_view_handler=self.__did_change_view)
-        self.temperature = ViewTemperature(self.__master.container, change_view_handler=self.__did_change_view)
+        self.home = HomeView(self.__master.container, change_view_handler=self.__did_change_view)
+        self.temperature = TemperatureView(self.__master.container, change_view_handler=self.__did_change_view)
 
         self.__frames = {
             View.Home: self.home,

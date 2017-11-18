@@ -1,6 +1,6 @@
 from tkinter import Tk, Frame, N, S, E, W
 
-class ViewContainer(Tk):
+class ContainerView(Tk):
     class Constants:
         title = "Casa Inteligente"
         heigth = 200

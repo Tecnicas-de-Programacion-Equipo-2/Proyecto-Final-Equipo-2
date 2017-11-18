@@ -1,7 +1,7 @@
 from tkinter import Frame, Label, Button, N, S, E, W
 from CustomType.View import View
 
-class ViewTemperature(Frame):
+class TemperatureView(Frame):
     class Constants:
         heigth = 100
         width = 550
