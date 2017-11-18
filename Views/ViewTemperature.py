@@ -15,7 +15,7 @@ class ViewTemperature(Frame):
 
         self.__configure_UI()
 
-        button1 = Button(self, text = "Back to Home", command = lambda: self.__did_tap_change_button(View.Start))
+        button1 = Button(self, text = "Back to Home", command = lambda: self.__did_tap_change_button(View.Home))
         button1.pack()
 
     def __configure_UI(self):
