@@ -1,33 +1,62 @@
-from Views.ViewContainer import ViewContainer
-#from Views.StartView import StartView
-#from Views.ViewOne import ViewOne
-#from Views.ViewTwo import ViewTwo
-#from CostomeType.View import View
+from Views.ContainerView import ContainerView
+from Views.HomeView import HomeView
+from Views.TemperatureView import TemperatureView
+from CustomType.View import View
+from serial import Serial
+from serial.tools import list_ports
 
 class MainApp():
 
     def __init__(self):
-        self.__master = ViewContainer()
+        for port in list_ports.comports():
+            print(port.device, port.name, port.description)
 
-        #start = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
-        #one = ViewOne(self.__master.container, change_view_hadler=self.__did_change_view)
-        #two = ViewTwo(self.__master.container, change_view_hadler=self.__did_change_view)
+        self.__master = ContainerView()
+        self.__arduino = Serial('COM4', 115200)
+        self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
-        #self.__frames = {
-        #    View.Start: start,
-        #    View.One: one,
-        #    View.Two: two
-        #}
+        self.home = HomeView(self.__master.container, change_view_handler=self.__did_change_view)
+        self.temperature = TemperatureView(self.__master.container, change_view_handler=self.__did_change_view)
 
-        #self.__master.set_views(self.__frames.values())
-        #self.__did_change_view(View.Start)
+        self.__frames = {
+            View.Home: self.home,
+            View.Temperature: self.temperature
+        }
+
+        self.__master.set_views(self.__frames.values())
+        self.__did_change_view(View.Home)
 
     def run(self):
+        self.__update_clock()
         self.__master.mainloop()
 
-    #def __did_change_view(self, view):
-    #    frame = self.__frames[view]
-    #    frame.tkraise()
+    def __on_closing(self):
+        self.__arduino.close()
+        self.__master.destroy()
+
+    def __update_clock(self):
+        try:
+            data = self.__arduino.readline().decode()
+        except UnicodeDecodeError:
+            data = '0'
+        self.__handle_data(data)
+        self.__master.after(1, self.__update_clock)
+
+    def __handle_data(self, data):
+        clean_values = data.strip(' \n\r').split(', ')
+        try:
+            temperature = int(clean_values[0])
+        except Exception:
+            return
+        self.temperature.update_temperatures(temperature)
+        if temperature >= 28:
+            print("******************" * 5)
+            print("Encender Ventiladores")
+            print("Temperature: ", temperature)
+
+    def __did_change_view(self, view):
+        frame = self.__frames[view]
+        frame.tkraise()
 
 if __name__ == "__main__":
     app = MainApp()
