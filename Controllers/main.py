@@ -16,7 +16,8 @@ class MainApp():
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.home = HomeView(self.__master.container, change_view_handler=self.__did_change_view)
-        self.temperature = TemperatureView(self.__master.container, change_view_handler=self.__did_change_view)
+        self.temperature = TemperatureView(self.__master.container, change_view_handler=self.__did_change_view,
+                                           tap_handler=self.__toggle_did_change)
 
         self.__frames = {
             View.Home: self.home,
@@ -53,6 +54,11 @@ class MainApp():
             print("******************" * 5)
             print("Encender Ventiladores")
             print("Temperature: ", temperature)
+
+    def __toggle_did_change(self, state, device):
+        value = str(1 if state else 0).encode('ascii')
+        print (device, value)
+        #self.__arduino.write(value)
 
     def __did_change_view(self, view):
         frame = self.__frames[view]

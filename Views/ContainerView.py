@@ -3,8 +3,8 @@ from tkinter import Tk, Frame, N, S, E, W
 class ContainerView(Tk):
     class Constants:
         title = "Casa Inteligente"
-        heigth = 200
-        width = 200
+        heigth = 300
+        width = 400
         center = N + S + E + W
 
     def __init__(self):
