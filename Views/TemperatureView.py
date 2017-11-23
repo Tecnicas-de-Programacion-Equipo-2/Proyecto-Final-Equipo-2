@@ -10,29 +10,40 @@ class TemperatureView(Frame):
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
         self.__change_view_handler = change_view_handler
-        self.__initial_celsius = 0
-        self.__initial_farenheit = 0
 
-        self.__configure_UI()
+        room1_label = Label(self, text = "Habitacion 1")
+        room1_label.pack(pady = 2, padx = 2)
+        self.__configure_room1_UI()
+        room2_label = Label(self, text="Habitacion 2")
+        room2_label.pack(pady = 2, padx = 2)
+        self.__configure_room2_UI()
 
         button1 = Button(self, text = "Back to Home", command = lambda: self.__did_tap_change_button(View.Home))
-        button1.pack()
+        button1.pack(pady = 2, padx = 2)
 
-    def __configure_UI(self):
-        self.__celsius_label = Label(self)
-        self.__celsius_label.configure(text = "Temperature Celsius: °C")
-        self.__celsius_label.pack(pady = 10, padx = 10)
+    def __configure_room1_UI(self):
+        self.__celsius_room1 = Label(self)
+        self.__celsius_room1.pack(pady = 1, padx = 1)
 
-        self.__farenheit_label = Label(self)
-        self.__farenheit_label.configure(text = "Temperature Farenheit: °F")
-        self.__farenheit_label.pack(pady = 10, padx = 10)
+        self.__farenheit_room1 = Label(self)
+        self.__farenheit_room1.pack(pady = 1, padx = 1)
+
+    def __configure_room2_UI(self):
+        self.__celsius_room2 = Label(self)
+        self.__celsius_room2.pack(pady = 1, padx = 1)
+
+        self.__farenheit_room2 = Label(self)
+        self.__farenheit_room2.pack(pady = 5, padx = 5)
+
+    def update_room1_status(self, celsius, farenheit):
+        self.__celsius_room1.configure(text = "Temperature Celsius: " + "{0:.1f}".format(celsius) + " °C")
+        self.__farenheit_room1.configure(text = "Temperature Farenheit: " + "{0:.1f}".format(farenheit) + " °F")
+
+    def update_room2_status(self, celsius, farenheit):
+        self.__celsius_room2.configure(text = "Temperature Celsius: " + "{0:.1f}".format(celsius) + " °C")
+        self.__farenheit_room2.configure(text = "Temperature Farenheit: " + "{0:.1f}".format(farenheit) + " °F")
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:
             return
         self.__change_view_handler(view)
-
-    def update_temperatures(self, value):
-        print("Value: ", value)
-        self.__celsius_label.configure(text = "Temperature Celsius: " + "{0:.1f}".format(value) + " °C")
-        self.__farenheit_label.configure(text = "Temperature Farenheit: " + "{0:.1f}".format(value * (9 / 5) + 32) + " °F")

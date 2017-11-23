@@ -1,6 +1,6 @@
+from Controllers.TemperatureController import TemperatureController
 from Views.ContainerView import ContainerView
 from Views.HomeView import HomeView
-from Views.TemperatureView import TemperatureView
 from CustomType.View import View
 from serial import Serial
 from serial.tools import list_ports
@@ -16,11 +16,11 @@ class MainApp():
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.home = HomeView(self.__master.container, change_view_handler=self.__did_change_view)
-        self.temperature = TemperatureView(self.__master.container, change_view_handler=self.__did_change_view)
+        self.temperature = TemperatureController(self.__master.container, self.__did_change_view)
 
         self.__frames = {
             View.Home: self.home,
-            View.Temperature: self.temperature
+            View.Temperature: self.temperature.temperature
         }
 
         self.__master.set_views(self.__frames.values())
@@ -45,14 +45,12 @@ class MainApp():
     def __handle_data(self, data):
         clean_values = data.strip(' \n\r').split(', ')
         try:
-            temperature = int(clean_values[0])
+            temperature_room1 = int(clean_values[0])
+            temperature_room2 = int(clean_values[1])
         except Exception:
             return
-        self.temperature.update_temperatures(temperature)
-        if temperature >= 28:
-            print("******************" * 5)
-            print("Encender Ventiladores")
-            print("Temperature: ", temperature)
+        self.temperature.update_temperatures(temperature_room1)
+        self.temperature.update_temperatures(temperature_room2)
 
     def __did_change_view(self, view):
         frame = self.__frames[view]
