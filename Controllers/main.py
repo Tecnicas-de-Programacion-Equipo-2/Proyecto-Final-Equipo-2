@@ -15,7 +15,7 @@ class MainApp():
         self.__arduino = Serial('COM4', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
-        self.home = HomeView(self.__master.container, change_view_handler=self.__did_change_view)
+        self.home = HomeView(self.__master.container, change_view_handler = self.__did_change_view)
         self.temperature_room1 = TemperatureController(self.__master.container, self.__did_change_view, '1')
         self.temperature_room2 = TemperatureController(self.__master.container, self.__did_change_view, '2')
 

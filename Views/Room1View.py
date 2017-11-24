@@ -2,6 +2,7 @@ from tkinter import Frame, Label, Button, N, S, E, W
 from CustomType.View import View
 
 class Room1View(Frame):
+
     class Constants:
         heigth = 100
         width = 550
