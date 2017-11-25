@@ -18,7 +18,10 @@ class TemperatureController():
         self.__farenheit = value * (9 / 5) + 32
         self.temperature.update_status(self.__celsius, self.__farenheit)
         if value >= 28:
-            self.turn_on_fan()
+            self.__turn_on = True
+        else:
+            self.__turn_on = False
 
+    @property
     def turn_on_fan(self):
-        self.turn_on = True
+        return self.__turn_on, self.__room
