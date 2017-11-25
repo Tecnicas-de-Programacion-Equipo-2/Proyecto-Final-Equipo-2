@@ -1,4 +1,5 @@
 from enum import Enum
 
 class Functions(Enum):
-    UpdateClock = "updateclock"
+    UpdateClock = "update_clock"
+    Close = "close"
