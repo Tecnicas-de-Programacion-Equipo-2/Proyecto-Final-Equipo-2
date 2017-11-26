@@ -24,6 +24,22 @@ class PasswordView(Frame):
         self.grid_columnconfigure(2, minsize=self.Constants.title_label)
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
+        self.__title_label = Label(self, text = self.Constants.title)
+        self.__title_label.grid(row=0, column=1, sticky=self.Constants.center)
+        self.__separator_label = Label(self, text=self.Constants.separator_text)
+        self.__separator_label.grid(row=1, column=1, sticky=self.Constants.center)
+        self.__password_label = Label(self, text=self.Constants.password_label)
+        self.__password_label.grid(row=1, column=0, sticky=self.Constants.center)
 
+        self.__password_input = Entry(self)
+        self.__password_input.grid(row=1, column=2, sticky=self.Constants.center)
+        self.__enter_button = Button(self)
+        self.__enter_button.configure(bg="lightslategray", text=self.Constants.login,
+                                      command=lambda:self.__did_tap_change_button(View.Home))
+        self.__enter_button.grid(row=2, column=0, columnspan=3, sticky=self.Constants.center)
 
+        self.__validation_label = Label(self)
+        self.__validation_label.grid(row=3, column=0, columnspan=3, sticky=self.Constants.center)
 
+    def __did_tap_change_button(self, view):
+        pass
