@@ -12,6 +12,8 @@ class HomeView(Frame):
         label.pack(pady = 10, padx = 10)
 
         button = Button(self, text = "Check Temperature", command = lambda: self.__did_tap_change_button(View.TemperatureRoom1))
+        button = Button(self, text = "Check Temperature",
+                        command = lambda: self.__did_tap_change_button(View.Temperature))
         button.pack()
 
     def __did_tap_change_button(self, view):
