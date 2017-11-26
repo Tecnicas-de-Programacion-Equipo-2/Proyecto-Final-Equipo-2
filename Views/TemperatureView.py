@@ -1,3 +1,4 @@
+
 from tkinter import Frame, Label, Button, N, S, E, W
 from CustomType.View import View
 from Views.ToggleButtons import ToggleButton

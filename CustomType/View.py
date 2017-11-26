@@ -1,5 +1,6 @@
 from enum import Enum
 
 class View(Enum):
-    Home = 'ViewHome'
-    Temperature = 'ViewTemperature'
+    Home = 'HomeView'
+    TemperatureRoom1 = 'Room1View'
+    TemperatureRoom2 = 'Room2View'

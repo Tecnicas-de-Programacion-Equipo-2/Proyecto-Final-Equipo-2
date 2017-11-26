@@ -2,6 +2,7 @@ from tkinter import Frame, Label, Button
 from CustomType.View import View
 
 class HomeView(Frame):
+
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
 
@@ -10,6 +11,7 @@ class HomeView(Frame):
         label = Label(self, text = "Home")
         label.pack(pady = 10, padx = 10)
 
+        button = Button(self, text = "Check Temperature", command = lambda: self.__did_tap_change_button(View.TemperatureRoom1))
         button = Button(self, text = "Check Temperature",
                         command = lambda: self.__did_tap_change_button(View.Temperature))
         button.pack()
