@@ -12,11 +12,11 @@ class PasswordView(Frame):
         title_label =150
         separator_width = 50
         validation = "Incorrect password"
-        password = '12345'
-
 
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
+        self.__password_rfid = 9618138124
+        self.__password = '12345'
 
         self.__change_view_handler = change_view_handler
         self.grid_rowconfigure(0, minsize=125)
@@ -42,4 +42,10 @@ class PasswordView(Frame):
         self.__validation_label.grid(row=3, column=0, columnspan=3, sticky=self.Constants.center)
 
     def __did_tap_change_button(self, view):
-        pass
+        password=str(self.__password_input.get())
+        if self.__change_view_handler is None:
+            return
+        elif password == self.__password:
+            self.__change_view_handler(view)
+        else:
+            self.__validation_label.configure(text=self.Constants.validation, bg="red")
