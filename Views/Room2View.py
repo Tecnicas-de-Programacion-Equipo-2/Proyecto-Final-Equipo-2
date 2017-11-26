@@ -10,11 +10,14 @@ class Room2View(Frame):
         center = N + S + E + W
         fan_on = 'Assets/fanon.ppm'
         fan_off = 'Assets/fanoff.ppm'
-        room_fan_1 = 'ventilador cuarto 1'
-        room_fan_2 = 'ventilador cuarto 2'
+        room_fan_on = 'Turn on fan'
+        room_fan_off = 'Turn off fan'
+        color_on = 'limegreen'
+        color_off = 'darkgray'
 
-    def __init__(self, parent, change_view_handler = None, tap_handler = None):
+    def __init__(self, parent, tap_handler, change_view_handler = None):
         super().__init__(parent)
+        self.__tap_fan_handler = tap_handler
         self.__change_view_handler = change_view_handler
 
         room2_label = Label(self, text="Habitacion 2")
@@ -24,10 +27,10 @@ class Room2View(Frame):
         button1 = Button(self, text = "Back", command = lambda: self.__did_tap_change_button(View.TemperatureRoom1))
         button1.pack(pady = 2, padx = 2)
 
-        self.__fan_1_button = ToggleButton(self, self.Constants.room_fan_1, self.Constants.fan_on,
-                                           self.Constants.fan_off, tap_toggle_handler = tap_handler)
-        self.__fan_2_button = ToggleButton(self, self.Constants.room_fan_2, self.Constants.fan_on,
-                                           self.Constants.fan_off, tap_toggle_handler = tap_handler)
+        self.__fan_on_button = ToggleButton(self, '2', self.Constants.fan_on, self.Constants.room_fan_on,
+                                            self.Constants.color_on, tap_toggle_handler=self.__tap_fan_handler)
+        self.__fan_off_button = ToggleButton(self, '2', self.Constants.fan_off, self.Constants.room_fan_off,
+                                             self.Constants.color_off, tap_toggle_handler=self.__tap_fan_handler)
 
     def __configure_room2_UI(self):
         self.__celsius_room2 = Label(self)

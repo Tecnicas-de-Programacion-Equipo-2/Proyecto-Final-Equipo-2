@@ -9,9 +9,11 @@ class TemperatureController():
         self.__room = room
 
         if room == '1':
-            self.temperature = Room1View(container, change_view_handler = self.__did_change_view)
+            self.temperature = Room1View(container, self.__temperature_handler,
+                                         change_view_handler = self.__did_change_view)
         if room == '2':
-            self.temperature = Room2View(container, change_view_handler = self.__did_change_view)
+            self.temperature = Room2View(container, self.__temperature_handler,
+                                         change_view_handler = self.__did_change_view)
 
     def update_temperatures(self, value):
         if value > 50: return
