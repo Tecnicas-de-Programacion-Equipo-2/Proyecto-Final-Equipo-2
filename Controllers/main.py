@@ -23,8 +23,8 @@ class MainApp():
         self.temperature_room2 = TemperatureController(self.__master.container, self.__did_change_view,
                                                        '2', temperature_handler = self.__update_fan)
 
-        #self.__arduino = ArduinoModel(self.__master, self.temperature_room1, self.temperature_room2)
-        self.__arduino_2 = ArduinoModel2(self.__master)
+        self.__arduino = ArduinoModel(self.__master, self.temperature_room1, self.temperature_room2)
+        self.__arduino_2 = ArduinoModel2(self.__master, house_acces=self.password.try_card)
 
         self.__frames = {
             View.Password: self.password,
@@ -37,12 +37,12 @@ class MainApp():
         self.__did_change_view(View.Password)
 
     def run(self):
-        #self.__arduino.function(Functions.UpdateClock)
+        self.__arduino.function(Functions.UpdateClock)
         self.__arduino_2.function(Functions.UpdateClock)
         self.__master.mainloop()
 
     def __on_closing(self):
-        #self.__arduino.function(Functions.Close)
+        self.__arduino.function(Functions.Close)
         self.__arduino_2.function(Functions.Close)
         self.__master.destroy()
 

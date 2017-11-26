@@ -8,11 +8,12 @@ class ArduinoModel2():
         port = "COM6"
         baud = 115200
 
-    def __init__(self, master):
+    def __init__(self, master, house_acces=None):
         for port in list_ports.comports():
             print(port.device, port.name, port.description)
 
         self.__master = master
+        self.__house_acces = house_acces
         self.__arduino = Serial(self.Constants.port, self.Constants.baud)
 
         self.__functions = {
@@ -31,7 +32,7 @@ class ArduinoModel2():
     def __handle_data(self, data):
         try:
             password_from_tag = int(data)
-            print(password_from_tag)
+            self.__house_acces(password_from_tag)
         except Exception:
             return
 

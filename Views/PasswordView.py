@@ -49,3 +49,8 @@ class PasswordView(Frame):
             self.__change_view_handler(view)
         else:
             self.__validation_label.configure(text=self.Constants.validation, bg="red")
+
+    def try_card(self, password):
+        if password == self.__password_rfid:
+            self.__change_view_handler(View.Home)
+        else:return
