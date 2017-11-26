@@ -15,8 +15,10 @@ class MainApp():
         self.__master.protocol(self.Constants.close_event, self.__on_closing)
 
         self.home = HomeView(self.__master.container, change_view_handler = self.__did_change_view)
-        self.temperature_room1 = TemperatureController(self.__master.container, self.__did_change_view, '1')
-        self.temperature_room2 = TemperatureController(self.__master.container, self.__did_change_view, '2')
+        self.temperature_room1 = TemperatureController(self.__master.container, self.__did_change_view,
+                                                       '1', temperature_handler = self.__update_fan)
+        self.temperature_room2 = TemperatureController(self.__master.container, self.__did_change_view,
+                                                       '2', temperature_handler = self.__update_fan)
 
         self.__arduino = ArduinoModel(self.__master, self.temperature_room1, self.temperature_room2)
 
@@ -40,6 +42,11 @@ class MainApp():
     def __did_change_view(self, view):
         frame = self.__frames[view]
         frame.tkraise()
+
+    def __update_fan(self, instruction):
+        #turn_fan = self.__arduino.function(Functions.TurnFan)
+        #turn_fan()
+        print(instruction)
 
 if __name__ == "__main__":
     app = MainApp()

@@ -20,7 +20,8 @@ class ArduinoModel():
 
         self.__functions = {
             Functions.UpdateClock: self.__update_clock,
-            Functions.Close: self.__close
+            Functions.Close: self.__close,
+            Functions.TurnFan: self.__turn_fan
         }
 
     def __update_clock(self):
@@ -43,6 +44,11 @@ class ArduinoModel():
 
     def __close(self):
         self.__arduino.close()
+
+    def __turn_fan(self, instruction):
+        turn_on = str(instruction).encode('ascii')
+        print(str(turn_on))
+        self.__arduino.write(turn_on)
 
     def function(self, function):
         do_function = self.__functions[function]

@@ -3,8 +3,9 @@ from Views.Room2View import Room2View
 
 class TemperatureController():
 
-    def __init__(self, container, did_change_view, room):
+    def __init__(self, container, did_change_view, room, temperature_handler = None):
         self.__did_change_view = did_change_view
+        self.__temperature_handler = temperature_handler
         self.__room = room
 
         if room == '1':
@@ -19,9 +20,8 @@ class TemperatureController():
         self.temperature.update_status(self.__celsius, self.__farenheit)
         if value >= 28:
             self.__turn_on = True
+            instruction = "{}_on".format(self.__room)
         else:
             self.__turn_on = False
-
-    @property
-    def turn_on_fan(self):
-        return self.__turn_on, self.__room
+            instruction = "{}_off".format(self.__room)
+        self.__temperature_handler(instruction)
