@@ -15,13 +15,13 @@ class HomeView(Frame):
                         command = lambda: self.__did_tap_change_button(View.Room1))
         button.pack()
         button = Button(self, text = "Habitacion 2",
-                        command=lambda: self.__did_tap_change_button(View.Room2))
+                        command = lambda: self.__did_tap_change_button(View.Room2))
         button.pack()
         button = Button(self, text = "Habitacion 3",
-                        command=lambda: self.__did_tap_change_button(View.Room3))
+                        command = lambda: self.__did_tap_change_button(View.Room3))
         button.pack()
         button = Button(self, text="Habitacion 4",
-                        command=lambda: self.__did_tap_change_button(View.Room4))
+                        command = lambda: self.__did_tap_change_button(View.Room4))
         button.pack()
 
     def __did_tap_change_button(self, view):

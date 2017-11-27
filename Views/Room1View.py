@@ -47,3 +47,11 @@ class Room1View(Frame):
         if self.__change_view_handler is None:
             return
         self.__change_view_handler(view)
+
+    @property
+    def fan_on(self):
+        return self.__fan_on_button.fan_on
+
+    @property
+    def fan_off(self):
+        return not(self.__fan_off_button.fan_on)
