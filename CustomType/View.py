@@ -3,5 +3,7 @@ from enum import Enum
 class View(Enum):
     Password = 'ViewPassword'
     Home = 'HomeView'
-    TemperatureRoom1 = 'Room1View'
-    TemperatureRoom2 = 'Room2View'
+    Room1 = 'Room1View'
+    Room2 = 'Room2View'
+    Room3 = 'Room3View'
+    Room4 = 'Room4View'
