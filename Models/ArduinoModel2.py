@@ -5,7 +5,7 @@ from serial import Serial
 class ArduinoModel2():
 
     class Constants:
-        port = "COM6"
+        port = "COM5"
         baud = 115200
 
     def __init__(self, master, house_acces=None):

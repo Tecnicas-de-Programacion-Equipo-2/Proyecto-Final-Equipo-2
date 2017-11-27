@@ -20,17 +20,17 @@ class Room2View(Frame):
         self.__tap_fan_handler = tap_handler
         self.__change_view_handler = change_view_handler
 
-        room2_label = Label(self, text="Habitacion 2")
+        room2_label = Label(self, text = "Habitacion 2")
         room2_label.pack(pady = 2, padx = 2)
         self.__configure_room2_UI()
 
-        button1 = Button(self, text = "Back", command = lambda: self.__did_tap_change_button(View.TemperatureRoom1))
+        button1 = Button(self, text = "Back Home", command = lambda: self.__did_tap_change_button(View.Home))
         button1.pack(pady = 2, padx = 2)
 
         self.__fan_on_button = ToggleButton(self, '2', self.Constants.fan_on, self.Constants.room_fan_on,
-                                            self.Constants.color_on, tap_toggle_handler=self.__tap_fan_handler)
+                                            self.Constants.color_on, tap_toggle_handler = self.__tap_fan_handler)
         self.__fan_off_button = ToggleButton(self, '2', self.Constants.fan_off, self.Constants.room_fan_off,
-                                             self.Constants.color_off, tap_toggle_handler=self.__tap_fan_handler)
+                                             self.Constants.color_off, tap_toggle_handler = self.__tap_fan_handler)
 
     def __configure_room2_UI(self):
         self.__celsius_room2 = Label(self)

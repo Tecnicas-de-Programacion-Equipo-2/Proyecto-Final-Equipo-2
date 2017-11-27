@@ -2,10 +2,10 @@ from CustomType.Functions import Functions
 from serial.tools import list_ports
 from serial import Serial
 
-class ArduinoModel():
+class ArduinoModel1():
 
     class Constants:
-        port = "COM6"
+        port = "COM4"
         baud = 115200
 
     def __init__(self, master, temperature_room1, temperature_room2):
