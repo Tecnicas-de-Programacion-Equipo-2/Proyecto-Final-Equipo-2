@@ -1,5 +1,6 @@
 from tkinter import Frame, Label, Button, Entry, N, S, E, W
 from CustomType.View import View
+from CustomType.Passwords import PasswordValidation
 
 class PasswordView(Frame):
     class Constants:
@@ -15,8 +16,8 @@ class PasswordView(Frame):
 
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
-        self.__password_rfid = 9618138124
-        self.__password = '12345'
+
+        print(PasswordValidation.validation(45))
 
         self.__change_view_handler = change_view_handler
         self.grid_rowconfigure(0, minsize = 125)
@@ -45,12 +46,12 @@ class PasswordView(Frame):
         password=str(self.__password_input.get())
         if self.__change_view_handler is None:
             return
-        elif password == self.__password:
+        elif PasswordValidation.validation(password):
             self.__change_view_handler(view)
         else:
             self.__validation_label.configure(text = self.Constants.validation, bg = "red")
 
     def try_card(self, password):
-        if password == self.__password_rfid:
+        if PasswordValidation.validation(password):
             self.__change_view_handler(View.Home)
         else:return
