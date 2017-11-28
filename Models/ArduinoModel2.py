@@ -1,24 +1,26 @@
 from CustomType.Functions import Functions
+from CustomType.Data import Data
 from serial.tools import list_ports
 from serial import Serial
 
 class ArduinoModel2():
-
+    # self.__arduino_1.write(value)
     class Constants:
-        port = "COM5"
+        port = 'COM5'
+
         baud = 115200
 
-    def __init__(self, master, house_acces=None):
+    def __init__(self, master, house_access = None):
         for port in list_ports.comports():
             print(port.device, port.name, port.description)
 
         self.__master = master
-        self.__house_acces = house_acces
+        self.__house_access = house_access
         self.__arduino = Serial(self.Constants.port, self.Constants.baud)
 
         self.__functions = {
             Functions.UpdateClock: self.__update_clock,
-            Functions.Close: self.__close
+            Functions.Close: self.__close,
         }
 
     def __update_clock(self):
@@ -32,7 +34,7 @@ class ArduinoModel2():
     def __handle_data(self, data):
         try:
             password_from_tag = int(data)
-            self.__house_acces(password_from_tag)
+            self.__house_access(password_from_tag)
         except Exception:
             return
 

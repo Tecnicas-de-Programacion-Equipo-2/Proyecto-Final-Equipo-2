@@ -9,6 +9,8 @@ from Views.Room4View import Room4View
 from Views.PasswordView import PasswordView
 from CustomType.View import View
 from CustomType.Functions import Functions
+#from CustomType.Data import Data
+from enum import Enum
 
 class MainApp():
 
@@ -35,7 +37,9 @@ class MainApp():
                                slider_handler = self.__change_value_slider)
 
         self.__arduino_1 = ArduinoModel1(self.__master, self.room1, self.room2)
-        #self.__arduino_2 = ArduinoModel2(self.__master, house_acces = self.password.try_card)
+        self.__arduino_2 = ArduinoModel2(self.__master, house_access = self.password.try_card)
+
+        self.__led = LEDModel()
 
         self.__frames = {
             View.Password: self.password,
@@ -51,12 +55,12 @@ class MainApp():
 
     def run(self):
         self.__arduino_1.function(Functions.UpdateClock)
-        #self.__arduino_2.function(Functions.UpdateClock)
+        #self.__arduino_2.function(Functions.UpdateClockArduino2)
         self.__master.mainloop()
 
     def __on_closing(self):
         self.__arduino_1.function(Functions.Close)
-        #self.__arduino_2.function(Functions.Close)
+        #self.__arduino_2.function(Functions.CloseArduino2)
         self.__master.destroy()
 
     def __did_change_view(self, view):
@@ -64,10 +68,10 @@ class MainApp():
         frame.tkraise()
 
     def __change_value_slider(self, room, value):
-        #value = str(state).encode('ascii')
-        print(room)
-        print(value)
-        #self.__arduino_1.write(value)
+        Data = [room, value]
+        #Data.ReadValue: value
+        #Data.Room: room
+        self.__led.read_brightness(Data)
 
     def __update_fan(self, instruction):
         pass
