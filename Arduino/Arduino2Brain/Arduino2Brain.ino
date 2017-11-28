@@ -16,13 +16,15 @@ void loop() {
       if ( Lector1.PICC_ReadCardSerial())
       {
         for (byte i = 0; i < Lector1.uid.size; i++) {
-          //Serial.print(Lector1.uid.uidByte[i] < 0x10 ? " 0" : " ");
           Serial.print(Lector1.uid.uidByte[i], DEC);
         }
         Serial.println(" ");
         //Lector1.PICC_HaltA();
-        //Lector1.PCD_StopCrypto1();       
+        Lector1.PCD_StopCrypto1();       
       }
     }
+   else{
+      Serial.println(0);
+      }
 }
 

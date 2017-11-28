@@ -15,7 +15,6 @@ class TemperatureController():
         self.__room_handler = room_handler
         self.__slide_handler = slider_handler
         self.__room = room_number
-        self.__fan_on = False
 
         if room_number == self.Constants.room_1:
             self.room = Room1View(container, self.__room_handler,
@@ -31,9 +30,9 @@ class TemperatureController():
         self.__celsius = temperature
         self.__farenheit = temperature * (9 / 5) + 32
         self.room.update_status(self.__celsius, self.__farenheit)
-        self.__fan_on = self.room.fan_on
+        self.__fan_on = self.room.fan_status
         if self.__fan_on == False:
-            if temperature >= self.Constants.max_temperature and self.__fan_on == False:
+            if temperature >= self.Constants.max_temperature:
                 self.__turn_on = True
                 instruction = "{}_on".format(self.__room)
             else:

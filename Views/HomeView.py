@@ -9,6 +9,7 @@ class HomeView(Frame):
         room_2 = 'Habitacion 2'
         room_3 = 'Habitacion 3'
         room_4 = 'Habitacion 4'
+        change = 'Change password or add tag'
 
         pad_backend = 10
 
@@ -35,6 +36,10 @@ class HomeView(Frame):
         button = Button(self, text = self.Constants.room_4,
                         command = lambda: self.__did_tap_change_button(View.Room4))
         button.pack()
+
+        change_password_button = Button(self, text = self.Constants.change,
+                    command = lambda: self.__did_tap_change_button(View.Changepassword))
+        change_password_button.pack()
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:

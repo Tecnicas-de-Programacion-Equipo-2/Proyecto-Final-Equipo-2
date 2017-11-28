@@ -3,14 +3,11 @@ from Views.ToggleButtons import ToggleButton
 from CustomType.View import View
 
 class Room1View(Frame):
-
     class Constants:
-        fan_on = 'Assets/fanon.ppm'
-        fan_off = 'Assets/fanoff.ppm'
-        room_fan_on = 'Turn on fan'
-        room_fan_off = 'Turn off fan'
-        color_on = 'limegreen'
-        color_off = 'darkgray'
+        fan_on = 'Assets/on.ppm'
+        fan_off = 'Assets/off.ppm'
+        room_fan_on = 'Fan on'
+        room_fan_off = 'Fan off'
         title = 'Habitacion 1'
         room = '1'
         update = 'Actualizar Brillo'
@@ -29,6 +26,7 @@ class Room1View(Frame):
 
     def __init__(self, parent, tap_handler, change_view_handler = None, slider_handler = None):
         super().__init__(parent)
+        self.__fan_on = False
         self.__tap_fan_handler = tap_handler
         self.__slider_handler = slider_handler
         self.__change_view_handler = change_view_handler
@@ -36,22 +34,19 @@ class Room1View(Frame):
 
         self.__configure_room1_UI()
 
-        self.__fan_on_button = ToggleButton(self, self.Constants.room, self.Constants.fan_on,
-                                            self.Constants.room_fan_on, self.Constants.color_on,
-                                            tap_toggle_handler = self.__tap_fan_handler)
-        self.__fan_off_button = ToggleButton(self, self.Constants.room, self.Constants.fan_off,
-                                             self.Constants.room_fan_off, self.Constants.color_off,
-                                             tap_toggle_handler = self.__tap_fan_handler)
+        self.__fan_button = ToggleButton(self, self.Constants.room, self.Constants.fan_on,
+                                            self.Constants.room_fan_on, self.Constants.fan_off,
+                                            self.Constants.room_fan_off, tap_toggle_handler = self.__tap_fan_handler)
 
     def __configure_room1_UI(self):
         room2_label = Label(self, text = self.Constants.title)
         room2_label.pack(pady = self.Constants.pad_backend, padx = self.Constants.pad_backend)
 
-        self.__celsius_room2 = Label(self)
-        self.__celsius_room2.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
+        self.__celsius_room1 = Label(self)
+        self.__celsius_room1.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
 
-        self.__farenheit_room2 = Label(self)
-        self.__farenheit_room2.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
+        self.__farenheit_room1 = Label(self)
+        self.__farenheit_room1.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
 
         self.__brightness_led = Scale(self, from_ = self.Constants.fromled,
                                       to = self.Constants.to, orient = HORIZONTAL, length = self.Constants.to)
@@ -66,9 +61,9 @@ class Room1View(Frame):
         button1.pack(pady = self.Constants.pad_backend, padx = self.Constants.pad_backend)
 
     def update_status(self, celsius, farenheit):
-        self.__celsius_room2.configure(text = self.Constants.celsius + "{0:.1f}".format(celsius) +
+        self.__celsius_room1.configure(text = self.Constants.celsius + "{0:.1f}".format(celsius) +
                                               self.Constants.celsius_symbol)
-        self.__farenheit_room2.configure(text = self.Constants.farenheit + "{0:.1f}".format(farenheit) +
+        self.__farenheit_room1.configure(text = self.Constants.farenheit + "{0:.1f}".format(farenheit) +
                                                 self.Constants.farenheit_symbol)
 
     def __did_tap_change_button(self, view):
@@ -83,9 +78,6 @@ class Room1View(Frame):
         self.__slider_handler(self.Constants.room, self.__value)
 
     @property
-    def fan_on(self):
-        return self.__fan_on_button.fan_on
-
-    @property
-    def fan_off(self):
-        return not (self.__fan_off_button.fan_on)
+    def fan_status(self):
+        self.__fan_on = self.__fan_button.fan_on
+        return (self.__fan_on)
