@@ -2,16 +2,21 @@ from tkinter import Frame, Label, Button, Entry, N, S, E, W
 from CustomType.View import View
 
 class PasswordView(Frame):
+
     class Constants:
-        title = "Login"
-        login = "Enter"
-        password_label = "Password"
-        separator_text = "▶"
+        title = 'Login'
+        login = 'Enter'
+        password_label = 'Contraseña'
+        separator_text = '▶'
         event = '<Return>'
-        center = N, S, E, W
+        validation = 'Contraseña Incorrecta'
+        bg_button = 'lightslategray'
+        bg_validation = 'red'
+
         title_label = 150
         separator_width = 50
-        validation = "Incorrect password"
+
+        center = N, S, E, W
 
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
@@ -34,7 +39,7 @@ class PasswordView(Frame):
         self.__password_input = Entry(self)
         self.__password_input.grid(row = 1, column = 2, sticky = self.Constants.center)
         self.__enter_button = Button(self)
-        self.__enter_button.configure(bg = "lightslategray", text = self.Constants.login,
+        self.__enter_button.configure(bg = self.Constants.bg_button, text = self.Constants.login,
                                       command = lambda: self.__did_tap_change_button(View.Home))
         self.__enter_button.grid(row = 2, column = 0, columnspan = 3, sticky = self.Constants.center)
 
@@ -42,15 +47,15 @@ class PasswordView(Frame):
         self.__validation_label.grid(row = 3, column = 0, columnspan = 3, sticky = self.Constants.center)
 
     def __did_tap_change_button(self, view):
-        password=str(self.__password_input.get())
+        password = str(self.__password_input.get())
         if self.__change_view_handler is None:
             return
         elif password == self.__password:
             self.__change_view_handler(view)
         else:
-            self.__validation_label.configure(text = self.Constants.validation, bg = "red")
+            self.__validation_label.configure(text = self.Constants.validation, bg = self.Constants.bg_validation)
 
     def try_card(self, password):
         if password == self.__password_rfid:
             self.__change_view_handler(View.Home)
-        else:return
+        else: return

@@ -3,24 +3,36 @@ from CustomType.View import View
 
 class HomeView(Frame):
 
+    class Constants:
+        home = 'Home'
+        room_1 = 'Habitacion 1'
+        room_2 = 'Habitacion 2'
+        room_3 = 'Habitacion 3'
+        room_4 = 'Habitacion 4'
+
+        pad_backend = 10
+
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
 
         self.__change_view_handler = change_view_handler
 
-        label = Label(self, text = "Home")
-        label.pack(pady = 10, padx = 10)
+        self.__configure_home_UI()
 
-        button = Button(self, text = "Habitacion 1",
+    def __configure_home_UI(self):
+        label = Label(self, text = self.Constants.home)
+        label.pack(pady = self.Constants.pad_backend, padx = self.Constants.pad_backend)
+
+        button = Button(self, text = self.Constants.room_1,
                         command = lambda: self.__did_tap_change_button(View.Room1))
         button.pack()
-        button = Button(self, text = "Habitacion 2",
+        button = Button(self, text = self.Constants.room_2,
                         command = lambda: self.__did_tap_change_button(View.Room2))
         button.pack()
-        button = Button(self, text = "Habitacion 3",
+        button = Button(self, text = self.Constants.room_3,
                         command = lambda: self.__did_tap_change_button(View.Room3))
         button.pack()
-        button = Button(self, text="Habitacion 4",
+        button = Button(self, text = self.Constants.room_4,
                         command = lambda: self.__did_tap_change_button(View.Room4))
         button.pack()
 

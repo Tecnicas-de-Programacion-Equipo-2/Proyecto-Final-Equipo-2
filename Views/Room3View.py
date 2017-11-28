@@ -20,6 +20,8 @@ class Room3View(Frame):
         super().__init__(parent)
         self.__change_view_handler = change_view_handler
         self.__slider_handler = slider_handler
+        self.__bright_change = self.Constants.fromled
+
         self.__configure_room3_UI()
 
     def __configure_room3_UI(self):
@@ -28,7 +30,7 @@ class Room3View(Frame):
 
         self.__brightness_led = Scale(self, from_ = self.Constants.fromled,
                                       to = self.Constants.to, orient = HORIZONTAL, length = self.Constants.to)
-        self.__brightness_led.set(self.Constants.fromled)
+        self.__brightness_led.set(self.__bright_change)
         self.__brightness_led.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
 
         self.__button_change = Button(self, text = self.Constants.update)
@@ -46,5 +48,6 @@ class Room3View(Frame):
 
     def __change_value(self, event):
         if self.__slider_handler is None: return
-        self.__state = self.__brightness_led.get()
-        self.__slider_handler(self.Constants.room, self.__state)
+        self.__value = self.__brightness_led.get()
+        self.__bright_change = self.__value
+        self.__slider_handler(self.Constants.room, self.__value)
