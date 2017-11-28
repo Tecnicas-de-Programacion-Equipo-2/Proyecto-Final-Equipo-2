@@ -1,6 +1,7 @@
 from Controllers.TemperatureController import TemperatureController
 from Models.ArduinoModel1 import ArduinoModel1
 from Models.ArduinoModel2 import ArduinoModel2
+from Models.LEDModel import LEDModel
 from Views.ContainerView import ContainerView
 from Views.HomeView import HomeView
 from Views.Room3View import Room3View
@@ -12,7 +13,9 @@ from CustomType.Functions import Functions
 class MainApp():
 
     class Constants:
-        close_event = "WM_DELETE_WINDOW"
+        close_event = 'WM_DELETE_WINDOW'
+        room_1 = '1'
+        room_2 = '2'
 
     def __init__(self):
         self.__master = ContainerView()
@@ -21,11 +24,15 @@ class MainApp():
         self.password = PasswordView(self.__master.container, change_view_handler = self.__did_change_view)
         self.home = HomeView(self.__master.container, change_view_handler = self.__did_change_view)
         self.room1 = TemperatureController(self.__master.container, self.__did_change_view,
-                                                       '1', room_handler = self.__update_fan)
+                                                       self.Constants.room_1, room_handler = self.__update_fan,
+                                           slider_handler = self.__change_value_slider)
         self.room2 = TemperatureController(self.__master.container, self.__did_change_view,
-                                                       '2', room_handler = self.__update_fan)
-        self.room3 = Room3View(self.__master.container, change_view_handler = self.__did_change_view)
-        self.room4 = Room4View(self.__master.container, change_view_handler = self.__did_change_view)
+                                                       self.Constants.room_2, room_handler = self.__update_fan,
+                                           slider_handler = self.__change_value_slider)
+        self.room3 = Room3View(self.__master.container, change_view_handler = self.__did_change_view,
+                               slider_handler = self.__change_value_slider)
+        self.room4 = Room4View(self.__master.container, change_view_handler = self.__did_change_view,
+                               slider_handler = self.__change_value_slider)
 
         self.__arduino_1 = ArduinoModel1(self.__master, self.room1, self.room2)
         #self.__arduino_2 = ArduinoModel2(self.__master, house_acces = self.password.try_card)
@@ -56,10 +63,18 @@ class MainApp():
         frame = self.__frames[view]
         frame.tkraise()
 
+    def __change_value_slider(self, room, value):
+        #value = str(state).encode('ascii')
+        print(room)
+        print(value)
+        #self.__arduino_1.write(value)
+
     def __update_fan(self, instruction):
-        #turn_fan = self.__arduino.function(Functions.TurnFan)
-        #turn_fan()
-        print(instruction)
+        pass
+        #turn_fan = self.__arduino_1.function(Functions.TurnFan.value)
+        #turn_fan(instruction)
+        #print(turn_fan)
+        #print(instruction)
 
 if __name__ == "__main__":
     app = MainApp()
