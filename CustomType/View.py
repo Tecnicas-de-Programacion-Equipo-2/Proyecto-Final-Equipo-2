@@ -1,7 +1,8 @@
 from enum import Enum
 
 class View(Enum):
-    Password = 'ViewPassword'
+    Password = 'PasswordView'
+    Changepassword = 'ChangepasswordView'
     Home = 'HomeView'
     Room1 = 'Room1View'
     Room2 = 'Room2View'

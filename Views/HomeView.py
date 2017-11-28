@@ -24,6 +24,10 @@ class HomeView(Frame):
                         command = lambda: self.__did_tap_change_button(View.Room4))
         button.pack()
 
+        change_password_button = Button(self, text="Change password or add tag",
+                    command=lambda: self.__did_tap_change_button(View.Changepassword))
+        change_password_button.pack()
+
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:
             return

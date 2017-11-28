@@ -17,6 +17,8 @@ class PasswordView(Frame):
     def __init__(self, parent, change_view_handler = None):
         super().__init__(parent)
 
+        print(PasswordValidation.validation(45))
+
         self.__change_view_handler = change_view_handler
         self.grid_rowconfigure(0, minsize = 125)
         self.grid_columnconfigure(0, minsize = self.Constants.title_label)
