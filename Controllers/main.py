@@ -27,8 +27,8 @@ class MainApp():
         self.room3 = Room3View(self.__master.container, change_view_handler = self.__did_change_view)
         self.room4 = Room4View(self.__master.container, change_view_handler = self.__did_change_view)
 
-        self.__arduino_1 = ArduinoModel1(self.__master, self.room1, self.room2)
-        #self.__arduino_2 = ArduinoModel2(self.__master, house_acces = self.password.try_card)
+        #self.__arduino_1 = ArduinoModel1(self.__master, self.room1, self.room2)
+        self.__arduino_2 = ArduinoModel2(self.__master, house_acces = self.password.try_card)
 
         self.__frames = {
             View.Password: self.password,
@@ -43,13 +43,13 @@ class MainApp():
         self.__did_change_view(View.Password)
 
     def run(self):
-        self.__arduino_1.function(Functions.UpdateClock)
-        #self.__arduino_2.function(Functions.UpdateClock)
+        #self.__arduino_1.function(Functions.UpdateClock)
+        self.__arduino_2.function(Functions.UpdateClock)
         self.__master.mainloop()
 
     def __on_closing(self):
-        self.__arduino_1.function(Functions.Close)
-        #self.__arduino_2.function(Functions.Close)
+        #self.__arduino_1.function(Functions.Close)
+        self.__arduino_2.function(Functions.Close)
         self.__master.destroy()
 
     def __did_change_view(self, view):

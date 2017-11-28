@@ -7,7 +7,6 @@ class TemperatureController():
         self.__did_change_view = did_change_view
         self.__room_handler = room_handler
         self.__room = room_number
-        self.__fan_on = False
 
         if room_number == '1':
             self.room = Room1View(container, self.__room_handler,
@@ -21,9 +20,9 @@ class TemperatureController():
         self.__celsius = temperature
         self.__farenheit = temperature * (9 / 5) + 32
         self.room.update_status(self.__celsius, self.__farenheit)
-        self.__fan_on = self.room.fan_on
+        self.__fan_on = self.room.fan_status
         if self.__fan_on == False:
-            if temperature >= 28 and self.__fan_on == False:
+            if temperature >= 28:
                 self.__turn_on = True
                 instruction = "{}_on".format(self.__room)
             else:
