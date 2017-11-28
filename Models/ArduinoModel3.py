@@ -20,7 +20,7 @@ class ArduinoModel3():
         self.__functions = {
             Functions.UpdateClock: self.__update_clock,
             Functions.Close: self.__close,
-            Functions.TurnFan: self.__turn_fan
+            # Functions.TurnFan: self.__turn_fan
         }
 
     def __update_clock(self):
