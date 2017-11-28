@@ -9,8 +9,6 @@ from Views.Room4View import Room4View
 from Views.PasswordView import PasswordView
 from CustomType.View import View
 from CustomType.Functions import Functions
-#from CustomType.Data import Data
-from enum import Enum
 
 class MainApp():
 
@@ -69,9 +67,9 @@ class MainApp():
 
     def __change_value_slider(self, room, value):
         Data = [room, value]
-        #Data.ReadValue: value
-        #Data.Room: room
         self.__led.read_brightness(Data)
+        self.__led_instruction = self.__led.get_instruction
+        print(self.__led_instruction)
 
     def __update_fan(self, instruction):
         pass
