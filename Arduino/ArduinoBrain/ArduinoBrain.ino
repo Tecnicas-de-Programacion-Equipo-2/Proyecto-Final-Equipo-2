@@ -12,6 +12,7 @@
 String data;
 
 DHT sensor_room1(SENSOR1PIN, DHTYPE);
+DHT sensor_humidity(SENSOR1PIN, DHTYPE);
 //DHT sensor_room2(SENSOR2PIN, DHTYPE);
 
 void setup() {
@@ -26,6 +27,7 @@ void setup() {
 
 void loop() {
   int temperature_room1 = sensor_room1.readTemperature();
+  float humidity = sensor_humidity.readHumidity();
   //int temperature_room2 = sensor_room2.readTemperature();
   
   if(Serial.available()) {
@@ -50,6 +52,7 @@ void loop() {
   
   sendData(temperature_room1, false);
   sendData(temperature_room1, true);
+  sendData(humidity);
 }
 
 void sendData(int value, bool is_complete) {

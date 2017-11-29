@@ -1,4 +1,5 @@
 from Controllers.TemperatureController import TemperatureController
+from Controllers.DistanceController import DistanceController
 from Models.ArduinoModel1 import ArduinoModel1
 from Models.ArduinoModel2 import ArduinoModel2
 from Models.LEDModel import LEDModel
