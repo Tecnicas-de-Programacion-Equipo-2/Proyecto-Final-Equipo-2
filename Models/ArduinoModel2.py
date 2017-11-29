@@ -33,8 +33,9 @@ class ArduinoModel2():
     def __handle_data(self, data):
         try:
             password_from_tag = int(data)
-            self.__house_acces(password_from_tag)
-            self.__changepasswordview.new_card(password_from_tag)
+            if password_from_tag != 0:
+                self.__house_acces(password_from_tag)
+                self.__changepasswordview.new_card(password_from_tag)
         except Exception:
             return
 

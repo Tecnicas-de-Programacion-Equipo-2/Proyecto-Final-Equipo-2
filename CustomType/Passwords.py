@@ -1,38 +1,32 @@
+from CustomType.passwords_hide import Passwords
 import json
 
-class Passwords:
-    __passwords = []
-
-    @classmethod
-    def __save_password(cls):
-        cls.__rfids = []
-        try:
-            passwords_file = open('passwords.json', 'r+')
-            passwords = json.load(passwords_file)
-        except FileNotFoundError:
-            print('Error r+ testfile')
-        else:
-            for password in passwords:
-                cls.__passwords.append(password['password'])
-
-            passwords_file.close()
-
-    @classmethod
-    def transfer_passwords(cls):
-        Passwords.__save_password()
-        return cls.__passwords
-
-    def new_tag(self, new_password):
-        new_tag={}
-        new_tag['type'] = 'card'
-        new_tag['password'] = new_password
-
-class PasswordValidation:
+class ChargePasswords:
 
     @staticmethod
     def validation(validate):
-        passwords = Passwords.transfer_passwords()
-        print(passwords)
-        for password in passwords:
-            if password == validate: return True
+        # try:
+        #     passwords_file = open('keys.json', 'r+')
+        #     passwords = json.load(passwords_file)
+        # except FileNotFoundError:
+        #     print('Error W testfile')
+        # else:
+        #     for password in passwords:
+        #         print(password)
+        #         if password['password'] == validate:
+        #             return True
+        #     return False
+        #     passwords_file.close()
+
+        for password in Passwords.keys:
+            if password['password'] == validate:
+                return True
         return False
+
+    @staticmethod
+    def new_card(new_password):
+        Passwords.keys.append(new_password)
+
+    @staticmethod
+    def change_passwords(new_password):
+        Passwords.keys[0]['password'] = new_password
