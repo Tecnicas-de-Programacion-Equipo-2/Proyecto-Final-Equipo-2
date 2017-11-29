@@ -1,11 +1,10 @@
 from tkinter import Frame, Label, Button, Entry
 from CustomType.View import View
-from CustomType.Passwords import ChargePasswords
+from CustomType.Passwords import ChangePasswords
 
 class Changepassword(Frame):
 
     class Constants:
-        password = 'Contraseña'
         change_password = 'Contraseña modificada'
         home = 'Home'
         add_tag = 'Agregar un tag o tarjeta'
@@ -53,7 +52,7 @@ class Changepassword(Frame):
 
     def __add_card(self):
         password = int(self.__password_input.get())
-        if ChargePasswords.validation(password):
+        if ChangePasswords.validation(password):
             self.__add = True
             self.label_description.configure(bg = self.Constants.color1, text = self.Constants.tag)
         else:
@@ -62,7 +61,7 @@ class Changepassword(Frame):
 
     def __change_password(self):
         password = str(self.__password_input.get())
-        if ChargePasswords.validation(password):
+        if ChangePasswords.validation(password):
             self.label_description.configure(bg = self.Constants.color1, text = self.Constants.new_password)
             self.__password_input.delete(0, 'end')
             if self.__confirmation == False:
@@ -80,13 +79,13 @@ class Changepassword(Frame):
                 "type": "card",
                 "password": password
             }
-            ChargePasswords.new_card(new)
+            ChangePasswords.new_card(new)
             self.__add = False
 
     def __send_password(self, event):
         if self.__confirmation:
             new_password = str(self.__password_input.get())
-            ChargePasswords.change_passwords(new_password)
+            ChangePasswords.change_passwords(new_password)
             self.__password_input.delete(0, 'end')
             self.label_description.configure(bg = self.Constants.color1, text = self.Constants.change_password)
             self.__confirmation = False
