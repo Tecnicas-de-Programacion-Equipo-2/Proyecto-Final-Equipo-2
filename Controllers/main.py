@@ -53,7 +53,7 @@ class MainApp():
         }
 
         self.__master.set_views(self.__frames.values())
-        self.__did_change_view(View.Password)
+        self.__did_change_view(View.Home)
 
     def run(self):
         self.__arduino_1.function(Functions.UpdateClock)
@@ -73,14 +73,10 @@ class MainApp():
         Data = [room, value]
         self.__led.read_brightness(Data)
         self.__led_instruction = self.__led.get_instruction
-        print(self.__led_instruction)
+        self.__arduino_2.send_led_values(self.__led_instruction)
 
     def __update_fan(self, instruction):
-        pass
-        #turn_fan = self.__arduino_1.function(Functions.TurnFan.value)
-        #turn_fan(instruction)
-        #print(turn_fan)
-        #print(instruction)
+        self.__arduino_1.turn_fan(instruction)
 
 if __name__ == "__main__":
     app = MainApp()

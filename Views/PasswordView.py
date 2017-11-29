@@ -25,11 +25,18 @@ class PasswordView(Frame):
         print(PasswordValidation.validation(45))
 
         self.__change_view_handler = change_view_handler
+
+        self.__configure_grid()
+
+        self.__configure_UI()
+
+    def __configure_grid(self):
         self.grid_rowconfigure(0, minsize = 125)
         self.grid_columnconfigure(0, minsize = self.Constants.title_label)
         self.grid_columnconfigure(2, minsize = self.Constants.title_label)
         self.grid_columnconfigure(1, minsize = self.Constants.separator_width)
 
+    def __configure_UI(self):
         self.__title_label = Label(self, text = self.Constants.title)
         self.__title_label.grid(row = 0, column = 1, sticky = self.Constants.center)
         self.__separator_label = Label(self, text = self.Constants.separator_text)

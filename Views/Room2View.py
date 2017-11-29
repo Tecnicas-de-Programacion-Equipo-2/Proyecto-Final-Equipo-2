@@ -8,8 +8,8 @@ class Room2View(Frame):
         fan_off = 'Assets/off.ppm'
         room_fan_on = 'Fan on'
         room_fan_off = 'Fan off'
-        title = 'Habitacion 1'
-        room = '1'
+        title = 'Habitacion 2'
+        room = '2'
         update = 'Actualizar Brillo'
         back = 'Back Home'
         celsius = 'Temperature Celsius: '
@@ -34,10 +34,6 @@ class Room2View(Frame):
 
         self.__configure_room2_UI()
 
-        self.__fan_button = ToggleButton(self, self.Constants.room, self.Constants.fan_on,
-                                            self.Constants.room_fan_on, self.Constants.fan_off,
-                                            self.Constants.room_fan_off, tap_toggle_handler = self.__tap_fan_handler)
-
     def __configure_room2_UI(self):
         room2_label = Label(self, text = self.Constants.title)
         room2_label.pack(pady = self.Constants.pad_backend, padx = self.Constants.pad_backend)
@@ -56,6 +52,11 @@ class Room2View(Frame):
         self.__button_change = Button(self, text = self.Constants.update)
         self.__button_change.bind(self.Constants.event, self.__change_value)
         self.__button_change.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
+
+        self.__fan_button = ToggleButton(self, self.Constants.room, self.Constants.fan_on,
+                                         self.Constants.room_fan_on, self.Constants.fan_off,
+                                         self.Constants.room_fan_off, tap_toggle_handler = self.__tap_fan_handler)
+        self.__fan_button.pack(pady = self.Constants.pad_middle, padx = self.Constants.pad_middle)
 
         button1 = Button(self, text = self.Constants.back, command = lambda: self.__did_tap_change_button(View.Home))
         button1.pack(pady = self.Constants.pad_backend, padx = self.Constants.pad_backend)

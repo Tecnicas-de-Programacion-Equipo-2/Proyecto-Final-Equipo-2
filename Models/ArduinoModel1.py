@@ -6,6 +6,7 @@ class ArduinoModel1():
 
     class Constants:
         port = 'COM4'
+        encode = 'ascii'
 
         baud = 115200
 
@@ -22,7 +23,6 @@ class ArduinoModel1():
         self.__functions = {
             Functions.UpdateClock: self.__update_clock,
             Functions.Close: self.__close,
-            Functions.TurnFan: self.__turn_fan,
         }
 
     def __update_clock(self):
@@ -46,7 +46,7 @@ class ArduinoModel1():
     def __close(self):
         self.__arduino.close()
 
-    def __turn_fan(self, instruction):
+    def turn_fan(self, instruction):
         turn_on = str(instruction).encode(self.Constants.encode)
         print(str(turn_on))
         self.__arduino.write(turn_on)

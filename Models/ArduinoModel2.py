@@ -3,7 +3,6 @@ from serial.tools import list_ports
 from serial import Serial
 
 class ArduinoModel2():
-    # self.__arduino_1.write(value)
     class Constants:
         port = 'COM5'
 
@@ -38,6 +37,10 @@ class ArduinoModel2():
             self.__changepasswordview.new_card(password_from_tag)
         except Exception:
             return
+
+    def send_led_values(self, instruction):
+        self.__arduino.write(instruction)
+        print(instruction)
 
     def __close(self):
         self.__arduino.close()
