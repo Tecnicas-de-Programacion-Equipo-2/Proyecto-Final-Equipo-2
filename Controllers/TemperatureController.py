@@ -15,6 +15,7 @@ class TemperatureController():
         self.__room_handler = room_handler
         self.__slide_handler = slider_handler
         self.__room = room_number
+        self.__last_instruction = False
 
         if room_number == self.Constants.room_1:
             self.room = Room1View(container, self.__room_handler,
@@ -38,4 +39,6 @@ class TemperatureController():
             else:
                 self.__turn_on = False
                 instruction = "{}_off".format(self.__room)
+            if self.__last_instruction == self.__turn_on: return
+            self.__last_instruction = self.__turn_on
             self.__room_handler(instruction)

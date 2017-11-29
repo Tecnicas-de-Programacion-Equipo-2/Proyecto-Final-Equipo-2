@@ -38,6 +38,7 @@ class ArduinoModel1():
         try:
             temperature_room1 = int(clean_values[0])
             temperature_room2 = int(clean_values[1])
+            data2 = str(clean_values[2])
         except Exception:
             return
         self.__temperature_room1.update_temperatures(temperature_room1)
@@ -48,7 +49,6 @@ class ArduinoModel1():
 
     def turn_fan(self, instruction):
         turn_on = str(instruction).encode(self.Constants.encode)
-        print(str(turn_on))
         self.__arduino.write(turn_on)
 
     def function(self, function):

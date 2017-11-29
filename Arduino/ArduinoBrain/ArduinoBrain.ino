@@ -9,6 +9,8 @@
 #define MOTOR2LEFT 10
 #define MOTOR2RIGHT 11
 
+String data;
+
 DHT sensor_room1(SENSOR1PIN, DHTYPE);
 //DHT sensor_room2(SENSOR2PIN, DHTYPE);
 
@@ -26,26 +28,26 @@ void loop() {
   int temperature_room1 = sensor_room1.readTemperature();
   //int temperature_room2 = sensor_room2.readTemperature();
   
-  while(Serial.available()) {
-    String data = String(Serial.readString());
-    if(data == "1_on") {
+  if(Serial.available()) {
+    data = String(Serial.readString());
+  }
+  if(data == "1_on") {
       digitalWrite(MOTOR1LEFT, HIGH);
       digitalWrite(MOTOR1RIGHT, HIGH);
-    }
-    if(data == "2_on") {
-      digitalWrite(MOTOR2LEFT, HIGH);
-      digitalWrite(MOTOR2RIGHT, HIGH);
-    }
-    if(data == "1_off") {
-      digitalWrite(MOTOR1LEFT, LOW);
-      digitalWrite(MOTOR1RIGHT, LOW);
-    }
-    if(data == "2_off") {
-      digitalWrite(MOTOR2LEFT, LOW);
-      digitalWrite(MOTOR2RIGHT, LOW);
-    }
   }
-
+  if(data == "2_on") {
+    digitalWrite(MOTOR2LEFT, HIGH);
+    digitalWrite(MOTOR2RIGHT, HIGH);
+  }
+  if(data == "1_off") {
+    digitalWrite(MOTOR1LEFT, LOW);
+    digitalWrite(MOTOR1RIGHT, LOW);
+  }
+  if(data == "2_off") {
+    digitalWrite(MOTOR2LEFT, LOW);
+    digitalWrite(MOTOR2RIGHT, LOW);
+  }
+  
   sendData(temperature_room1, false);
   sendData(temperature_room1, true);
 }
