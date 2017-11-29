@@ -5,7 +5,9 @@ from serial import Serial
 class ArduinoModel1():
 
     class Constants:
-        port = "COM6"
+        port = 'COM4'
+        encode = 'ascii'
+
         baud = 115200
 
     def __init__(self, master, temperature_room1, temperature_room2):
@@ -21,7 +23,6 @@ class ArduinoModel1():
         self.__functions = {
             Functions.UpdateClock: self.__update_clock,
             Functions.Close: self.__close,
-            Functions.TurnFan: self.__turn_fan
         }
 
     def __update_clock(self):
@@ -37,6 +38,7 @@ class ArduinoModel1():
         try:
             temperature_room1 = int(clean_values[0])
             temperature_room2 = int(clean_values[1])
+            data2 = str(clean_values[2])
         except Exception:
             return
         self.__temperature_room1.update_temperatures(temperature_room1)
@@ -45,9 +47,8 @@ class ArduinoModel1():
     def __close(self):
         self.__arduino.close()
 
-    def __turn_fan(self, instruction):
-        turn_on = str(instruction).encode('ascii')
-        print(str(turn_on))
+    def turn_fan(self, instruction):
+        turn_on = str(instruction).encode(self.Constants.encode)
         self.__arduino.write(turn_on)
 
     def function(self, function):

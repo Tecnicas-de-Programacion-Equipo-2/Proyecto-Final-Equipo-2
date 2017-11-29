@@ -3,9 +3,9 @@ from serial.tools import list_ports
 from serial import Serial
 
 class ArduinoModel2():
-
     class Constants:
-        port = "COM6"
+        port = 'COM5'
+
         baud = 115200
 
     def __init__(self, master, change_password, house_acces=None):
@@ -19,7 +19,7 @@ class ArduinoModel2():
 
         self.__functions = {
             Functions.UpdateClock: self.__update_clock,
-            Functions.Close: self.__close
+            Functions.Close: self.__close,
         }
 
     def __update_clock(self):
@@ -38,6 +38,10 @@ class ArduinoModel2():
                 self.__changepasswordview.new_card(password_from_tag)
         except Exception:
             return
+
+    def send_led_values(self, instruction):
+        self.__arduino.write(instruction)
+        print(instruction)
 
     def __close(self):
         self.__arduino.close()

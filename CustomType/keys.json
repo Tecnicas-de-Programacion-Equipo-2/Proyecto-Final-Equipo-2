@@ -1,7 +1,7 @@
 [
   {
     "type": "password",
-    "password": '12345'
+    "password": "12345"
   },
   {
     "type": "card",

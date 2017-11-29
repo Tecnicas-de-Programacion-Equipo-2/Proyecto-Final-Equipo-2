@@ -1,7 +1,7 @@
 from CustomType.passwords_hide import Passwords
 import json
 
-class ChargePasswords:
+class ChangePasswords:
 
     @staticmethod
     def validation(validate):
