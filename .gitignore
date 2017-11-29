@@ -8,6 +8,8 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 #Passwords
+CustomType/passwords_hide.py
+CustomType/keys.json
 
 # User-specific stuff:
 .idea
