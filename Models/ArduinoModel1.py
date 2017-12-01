@@ -10,15 +10,17 @@ class ArduinoModel1():
 
         baud = 115200
 
-    def __init__(self, master, temperature_room1, temperature_room2):
+    def __init__(self, master, room1_model, room2_model, home):
         for port in list_ports.comports():
             print(port.device, port.name, port.description)
 
         self.__master = master
         self.__arduino = Serial(self.Constants.port, self.Constants.baud)
 
-        self.__temperature_room1 = temperature_room1
-        self.__temperature_room2 = temperature_room2
+        self.__room1_model = room1_model
+        self.__room2_model = room2_model
+
+        self.__home = home
 
         self.__functions = {
             Functions.UpdateClockArduino1: self.__update_clock,
@@ -31,17 +33,23 @@ class ArduinoModel1():
         except UnicodeDecodeError:
             data = '0'
         self.__handle_data(data)
-        self.__master.after(1, self.__update_clock)
+        self.__master.after(5, self.__update_clock)
 
     def __handle_data(self, data):
         clean_values = data.strip(' \n\r').split(', ')
         try:
             temperature_room1 = int(clean_values[0])
             temperature_room2 = int(clean_values[1])
+            humidity_room1 = int(clean_values[2])
+            humidity_room2 = int(clean_values[3])
+            distance_alarm = int(clean_values[4])
         except Exception:
             return
-        self.__temperature_room1.update_temperatures(temperature_room1)
-        self.__temperature_room2.update_temperatures(temperature_room2)
+        self.__room1_model.update_temperatures(temperature_room1)
+        self.__room2_model.update_temperatures(temperature_room2)
+        self.__home.update_humidity(humidity_room1)
+        self.__home.update_humidity(humidity_room2)
+        self.__home.update_distance(distance_alarm)
 
     def __close(self):
         self.__arduino.close()
