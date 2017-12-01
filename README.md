@@ -4,7 +4,8 @@ Proyecto de Tecnicas de Programacion - Casa Inteligente (Domotica)
 * Quero Garcia Gerardo
 * Ramos Sanchez Samuel
 ======
+
 ![alt text](ReadmeAssets/examen-bob.gif "Examen Bob")
 
 ## Registro Expo DIMEI
-![alt text](ReadmeAssets/registro-dimei.png "Registro")
+![alt text](ReadmeAssets/registro_dimei.png "Registro")
