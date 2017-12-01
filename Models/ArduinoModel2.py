@@ -4,9 +4,9 @@ from serial import Serial
 
 class ArduinoModel2():
     class Constants:
-        port = 'COM5'
+        port = 'COM10'
 
-        baud = 9600
+        baud = 115200
 
     def __init__(self, master, change_password, house_acces=None):
         for port in list_ports.comports():

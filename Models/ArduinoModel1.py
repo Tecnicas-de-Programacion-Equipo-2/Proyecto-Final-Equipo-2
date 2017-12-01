@@ -5,7 +5,7 @@ from serial import Serial
 class ArduinoModel1():
 
     class Constants:
-        port = 'COM5'
+        port = 'COM9'
         encode = 'ascii'
 
         baud = 115200
@@ -31,7 +31,7 @@ class ArduinoModel1():
         except UnicodeDecodeError:
             data = '0'
         self.__handle_data(data)
-        self.__master.after(1, self.__update_clock)
+        self.__master.after(4, self.__update_clock)
 
     def __handle_data(self, data):
         clean_values = data.strip(' \n\r').split(', ')

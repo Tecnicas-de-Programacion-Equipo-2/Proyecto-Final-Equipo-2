@@ -41,7 +41,7 @@ void loop() {
         }
         Serial.println(" ");
         //Lector1.PICC_HaltA();
-        Lector1.PCD_StopCrypto1();       
+        //Lector1.PCD_StopCrypto1();       
       }
   }
   else{
