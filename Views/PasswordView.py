@@ -20,12 +20,13 @@ class PasswordView(Frame):
 
         center = N, S, E, W
 
-    def __init__(self, parent, change_view_handler = None):
+    def __init__(self, parent, change_view_handler = None, open_door = None):
         super().__init__(parent)
 
         ChangePasswords.validation(45)
 
         self.__change_view_handler = change_view_handler
+        self.__open_door = open_door
 
         self.__configure_grid()
 
@@ -68,4 +69,5 @@ class PasswordView(Frame):
     def try_card(self, password):
         if ChangePasswords.validation(password):
             self.__change_view_handler(View.Home)
+            self.__open_door("DoorO")
         else: return
