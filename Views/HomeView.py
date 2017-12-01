@@ -10,18 +10,26 @@ class HomeView(Frame):
         room_2 = 'Habitacion 2'
         room_3 = 'Habitacion 3'
         room_4 = 'Habitacion 4'
-        change = 'Change password or add tag'
+        change = 'Cambiar contraseña o agregar tag'
         fg = '#d80808'
-        alert_fire = 'FIRE DETECTED'
-        alert_intruder = 'INTRUDER DETECTED'
+        alert_fire = 'INCENDIO DETECTADO'
+        alert_intruder = 'INTRUSO DETECTADO'
         no_alert = ''
+        fire_SMS = 'Tu casa ha detectado un incendio'
+        intruder_SMS = 'Tu casa ha detectado un intruso'
 
         pad_backend = 10
 
-    def __init__(self, parent, change_view_handler = None):
+    def __init__(self, parent, change_view_handler = None, send_handler = None):
         super().__init__(parent)
 
         self.__change_view_handler = change_view_handler
+        self.__send_handler = send_handler
+
+        self.__last_fire_alert = False
+        self.__last_intruder_alert = False
+
+        self.__phone = '5548557963'
 
         self.__configure_home_UI()
 
@@ -60,15 +68,25 @@ class HomeView(Frame):
         change_password_button.pack()
 
     def __fire_alert(self):
+        self.__fire = True
+        if self.__last_fire_alert == self.__fire: return
+        self.__send(self.Constants.fire_SMS)
+        self.__last_fire_alert = self.__fire
         self.__alert_fire.configure(text = self.Constants.alert_fire, fg = self.Constants.fg)
 
     def __cease_fire_alert(self):
+        self.__last_fire_alert = False
         self.__alert_fire.configure(text = self.Constants.no_alert)
 
     def __intruder_alert(self):
+        self.__intruder = True
+        if self.__last_intruder_alert == self.__intruder: return
+        #self.__send(self.Constants.intruder_SMS)
+        self.__last_intruder_alert = self.__intruder
         self.__alert_intruder.configure(text = self.Constants.alert_intruder, fg = self.Constants.fg)
 
     def __cease_intruder_alert(self):
+        self.__last_intruder_alert = False
         self.__alert_intruder.configure(text = self.Constants.no_alert)
 
     def __did_tap_change_button(self, view):
@@ -79,3 +97,7 @@ class HomeView(Frame):
     def function(self, function):
         do_function = self.__functions[function]
         do_function()
+
+    def __send(self, message):
+        if self.__send_handler is None: return
+        self.__send_handler(self.__phone, message)

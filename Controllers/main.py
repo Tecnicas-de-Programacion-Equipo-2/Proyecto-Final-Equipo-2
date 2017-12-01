@@ -5,6 +5,7 @@ from Models.LEDModel import LEDModel
 from Models.DistanceModel import DistanceModel
 from Models.FireModel import FireModel
 from Models.TemperatureModel import TemperatureModel
+from Models.MessageManager import MessageManager
 from Views.ChangepasswordView import Changepassword
 from Views.ContainerView import ContainerView
 from Views.HomeView import HomeView
@@ -25,10 +26,13 @@ class MainApp():
         self.__master = ContainerView()
         self.__master.protocol(self.Constants.close_event, self.__on_closing)
 
+        self.__client = MessageManager()
+
         self.password = PasswordView(self.__master.container, change_view_handler = self.__did_change_view)
         self.changepassword = Changepassword(self.__master.container, change_view_handler = self.__did_change_view)
 
-        self.home = HomeView(self.__master.container, change_view_handler = self.__did_change_view)
+        self.home = HomeView(self.__master.container, change_view_handler = self.__did_change_view,
+                             send_handler = self.__send)
 
         self.room1 = Room1View(self.__master.container, tap_handler = self.__update_fan,
                                change_view_handler = self.__did_change_view, slider_handler = self.__change_value_slider)
@@ -81,12 +85,13 @@ class MainApp():
         Data = [room, value]
         self.__led.read_brightness(Data)
         self.__led_instruction = self.__led.get_instruction
-        print(self.__led_instruction)
         #self.__arduino_2.send_led_values(self.__led_instruction)
 
     def __update_fan(self, instruction):
-        print(instruction)
         self.__arduino_1.turn_fan(instruction)
+
+    def __send(self, phone, message):
+        self.__client.send_message(phone, message)
 
 if __name__ == "__main__":
     app = MainApp()

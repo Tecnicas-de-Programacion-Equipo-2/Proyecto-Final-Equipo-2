@@ -10,6 +10,8 @@
 #Passwords
 CustomType/passwords_hide.py
 CustomType/keys.json
+Env
+Env/env.json
 
 # User-specific stuff:
 .idea
