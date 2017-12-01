@@ -1,5 +1,5 @@
 #include <SPI.h>
-#include <src/MFRC522.h>
+#include <MFRC522.h>
 #include <Servo.h>
 
 //TEst
