@@ -1,35 +1,31 @@
 #include <DHT.h>
 
 #define SENSOR1PIN 2
-//#define SENSOR2PIN 3
+#define SENSOR2PIN 3
 #define DHTYPE DHT11
 
-#define MOTOR1LEFT 5
-#define MOTOR1RIGHT 6
-#define MOTOR2LEFT 10
-#define MOTOR2RIGHT 11
+#define MOTOR1 5
+#define MOTOR2 6
 
 String data;
 
 DHT sensor_room1(SENSOR1PIN, DHTYPE);
-//DHT sensor_room2(SENSOR2PIN, DHTYPE);
+DHT sensor_room2(SENSOR2PIN, DHTYPE);
 
 void setup() {
-  pinMode(MOTOR1LEFT, OUTPUT);
-  pinMode(MOTOR1RIGHT, OUTPUT);
-  pinMode(MOTOR2LEFT, OUTPUT);
-  pinMode(MOTOR2RIGHT, OUTPUT);
+  pinMode(MOTOR1, OUTPUT);
+  pinMode(MOTOR2, OUTPUT);
   Serial.begin(115200);
   sensor_room1.begin();
-  //sensor_room2.begin();
+  sensor_room2.begin();
 }
 
 void loop() {
   int temperature_room1 = sensor_room1.readTemperature();
-  //int temperature_room2 = sensor_room2.readTemperature();
+  int temperature_room2 = sensor_room2.readTemperature();
   
   sendData(temperature_room1, false);
-  sendData(temperature_room1, true);
+  sendData(temperature_room2, true);
 }
 
 void sendData(int value, bool is_complete) {
@@ -46,19 +42,15 @@ void serialEvent(){
   String data = Serial.readString();
   
   if(data == "1_on") {
-      digitalWrite(MOTOR1LEFT, HIGH);
-      digitalWrite(MOTOR1RIGHT, HIGH);
+      digitalWrite(MOTOR1, HIGH);
   }
   if(data == "2_on") {
-    digitalWrite(MOTOR2LEFT, HIGH);
-    digitalWrite(MOTOR2RIGHT, HIGH);
+    digitalWrite(MOTOR2, HIGH);
   }
   if(data == "1_off") {
-    digitalWrite(MOTOR1LEFT, LOW);
-    digitalWrite(MOTOR1RIGHT, LOW);
+    digitalWrite(MOTOR1, LOW);
   }
   if(data == "2_off") {
-    digitalWrite(MOTOR2LEFT, LOW);
-    digitalWrite(MOTOR2RIGHT, LOW);
+    digitalWrite(MOTOR2, LOW);
   }
 }
