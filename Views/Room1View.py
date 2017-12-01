@@ -24,7 +24,7 @@ class Room1View(Frame):
 
         event = '<Button-1>'
 
-    def __init__(self, parent, tap_handler, change_view_handler = None, slider_handler = None):
+    def __init__(self, parent, tap_handler = None, change_view_handler = None, slider_handler = None):
         super().__init__(parent)
         self.__fan_on = False
         self.__tap_fan_handler = tap_handler

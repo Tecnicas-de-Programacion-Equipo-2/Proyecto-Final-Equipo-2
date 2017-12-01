@@ -41,6 +41,12 @@ class HomeView(Frame):
                     command = lambda: self.__did_tap_change_button(View.Changepassword))
         change_password_button.pack()
 
+    def update_humidity(self, event):
+        pass
+
+    def update_distance(self, event):
+        pass
+
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:
             return
