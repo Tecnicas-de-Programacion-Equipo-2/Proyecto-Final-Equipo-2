@@ -4,8 +4,8 @@ from CustomType.View import View
 
 class Room2View(Frame):
     class Constants:
-        fan_on = 'Assets/on.ppm'
-        fan_off = 'Assets/off.ppm'
+        fan_on = './Assets/on.ppm'
+        fan_off = './Assets/off.ppm'
         room_fan_on = 'Fan on'
         room_fan_off = 'Fan off'
         title = 'Habitacion 2'

@@ -22,7 +22,7 @@ void setup() {
   SPI.begin();       
   Lector1.PCD_Init(); 
   
-  DoorsMotor.attach(9);
+  DoorsMotor.attach(6);
   
   pinMode(RoomLight1, OUTPUT); 
   pinMode(RoomLight2, OUTPUT);  
@@ -48,42 +48,42 @@ void loop() {
   }
 }
 
-void serialEvent(){
-  String input = Serial.readString();
-
-  int room_1 = getValue(input, ' ', 0).toInt();
-  int room_2 = getValue(input, ' ', 1).toInt();
-  int room_3 = getValue(input, ' ', 2).toInt();
-  int room_4 = getValue(input, ' ', 3).toInt();
+//void serialEvent(){
+//  String input = Serial.readString();
+//
+//  int room_1 = getValue(input, ' ', 0).toInt();
+//  int room_2 = getValue(input, ' ', 1).toInt();
+//  int room_3 = getValue(input, ' ', 2).toInt();
+//  int room_4 = getValue(input, ' ', 3).toInt();
   
-  LightHandlerRoom1(room_1,room_2,room_3,room_4);
-}
-
-void DoorHandler(String DoorState) {
-  int state = DoorState == "DoorO" ? 90 : 0;
-  DoorsMotor.write(state);
-}
-
-void LightHandler(int room_1, int room_2, int room_3, int room_4) {
-   Serial.println(room_1,room_2,room_3,room_4);
-   analogWrite(RoomLight1,room_1);
-   analogWrite(RoomLight2,room_2);
-   analogWrite(RoomLight3,room_3);
-   analogWrite(RoomLight4,room_4);
-}
-
-
-String getValue(String data, char separator, int index) {
-    int found = 0;
-    int strIndex[] = { 0, -1 };
-    int maxIndex = data.length() - 1;
-
-    for (int i = 0; i <= maxIndex && found <= index; i++) {
-        if (data.charAt(i) == separator || i == maxIndex) {
-            found++;
-            strIndex[0] = strIndex[1] + 1;
-            strIndex[1] = (i == maxIndex) ? i+1 : i;
-        }
-    }
-    return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
-}
+//  LightHandlerRoom1(room_1,room_2,room_3,room_4);
+//}
+//
+//void DoorHandler(String DoorState) {
+//  int state = DoorState == "DoorO" ? 90 : 0;
+//  DoorsMotor.write(state);
+//}
+//
+//void LightHandler(int room_1, int room_2, int room_3, int room_4) {
+//   Serial.println(room_1,room_2,room_3,room_4);
+//   analogWrite(RoomLight1,room_1);
+//   analogWrite(RoomLight2,room_2);
+//   analogWrite(RoomLight3,room_3);
+//   analogWrite(RoomLight4,room_4);
+//}
+//
+//
+//String getValue(String data, char separator, int index) {
+//    int found = 0;
+//    int strIndex[] = { 0, -1 };
+//    int maxIndex = data.length() - 1;
+//
+//    for (int i = 0; i <= maxIndex && found <= index; i++) {
+//        if (data.charAt(i) == separator || i == maxIndex) {
+//            found++;
+//            strIndex[0] = strIndex[1] + 1;
+//            strIndex[1] = (i == maxIndex) ? i+1 : i;
+//        }
+//    }
+//    return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+//}

@@ -14,16 +14,15 @@ class ToggleButton(Label):
         self.__tap_toggle_handler = tap_toggle_handler
         self.__text_on = text_button_on
         self.__text_off = text_button_off
-        #self.__on_image = PhotoImage(file = '..\Assets\on.ppm')
-        #self.__off_image = PhotoImage(file = image_off)
-        #self.__set_image(self.__off_image)
+        self.__on_image = PhotoImage(file = image_on)
+        self.__off_image = PhotoImage(file = image_off)
 
-        self.button = Button(self.master, bg = self.Constants.color_off, text = self.__text_off)
+        self.button = Button(self.master, bg = self.Constants.color_off, text = self.__text_on, image=self.__on_image)
         self.button.pack()
         self.button.bind(self.Constants.event, self.__toggle)
 
     def __set_image(self,image):
-        self.configure(image = image)
+        self.button.configure(image = image)
         self.image = image
 
     def __toggle(self, event):
@@ -35,8 +34,8 @@ class ToggleButton(Label):
             self.fan_on = False
             self.button.configure(bg = self.Constants.color_off, text = self.__text_off)
             instruction = "{}_off".format(self.__room)
-        #image = self.__on_image if self.fan_on else self.__off_image
-        #self.__set_image(image)
+        image = self.__off_image if self.fan_on else self.__on_image
+        self.__set_image(image)
         if self.__tap_toggle_handler is None:
             return
         self.__tap_toggle_handler(instruction)

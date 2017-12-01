@@ -5,7 +5,7 @@ class ChangePasswords:
     @staticmethod
     def validation(validate):
         try:
-            passwords_file = open('..\CustomType\keys.json', 'r+')
+            passwords_file = open('.\CustomType\keys.json', 'r+')
             passwords = json.load(passwords_file)
         except FileNotFoundError :
             print('Error W testfile')

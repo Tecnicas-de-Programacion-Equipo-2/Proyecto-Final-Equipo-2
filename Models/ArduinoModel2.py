@@ -4,9 +4,10 @@ from serial import Serial
 
 class ArduinoModel2():
     class Constants:
-        port = 'COM10'
-
+        port = 'COM9'
+        encode = 'ascii'
         baud = 115200
+
 
     def __init__(self, master, change_password, house_acces=None):
         for port in list_ports.comports():
@@ -16,6 +17,7 @@ class ArduinoModel2():
         self.__house_acces = house_acces
         self.__changepasswordview = change_password
         self.__arduino = Serial(self.Constants.port, self.Constants.baud)
+        self.change_door("DoorC")
 
         self.__functions = {
             Functions.UpdateClockArduino2: self.__update_clock,
@@ -28,7 +30,7 @@ class ArduinoModel2():
         except UnicodeDecodeError:
             data = '0'
         self.__handle_data(data)
-        self.__master.after(5, self.__update_clock)
+        self.__master.after(4, self.__update_clock)
 
     def __handle_data(self, data):
         try:
@@ -41,6 +43,10 @@ class ArduinoModel2():
 
     def send_led_values(self, instruction):
         self.__arduino.write(instruction)
+
+    def change_door(self, instruction):
+        change_position = str(instruction).encode(self.Constants.encode)
+        self.__arduino.write(change_position)
 
     def __close(self):
         self.__arduino.close()

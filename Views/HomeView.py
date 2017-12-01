@@ -17,14 +17,16 @@ class HomeView(Frame):
         no_alert = ''
         fire_SMS = 'Tu casa ha detectado un incendio'
         intruder_SMS = 'Tu casa ha detectado un intruso'
+        close = 'Cerrar puerta'
 
         pad_backend = 10
 
-    def __init__(self, parent, change_view_handler = None, send_handler = None):
+    def __init__(self, parent, change_view_handler = None, send_handler = None, close_door = None):
         super().__init__(parent)
 
         self.__change_view_handler = change_view_handler
         self.__send_handler = send_handler
+        self.__close_door = close_door
 
         self.__last_fire_alert = False
         self.__last_intruder_alert = False
@@ -67,6 +69,9 @@ class HomeView(Frame):
                     command = lambda: self.__did_tap_change_button(View.Changepassword))
         change_password_button.pack()
 
+        close_door_button = Button(self, text = self.Constants.close, command = self.__close)
+        close_door_button.pack()
+
     def __fire_alert(self):
         self.__fire = True
         if self.__last_fire_alert == self.__fire: return
@@ -101,3 +106,6 @@ class HomeView(Frame):
     def __send(self, message):
         if self.__send_handler is None: return
         self.__send_handler(self.__phone, message)
+
+    def __close(self):
+        self.__close_door("DoorC")
