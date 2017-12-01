@@ -4,6 +4,7 @@ class ToggleButton(Label):
     class Constants:
         color_on = 'limegreen'
         color_off = 'darkgray'
+
         event = '<Button-1>'
 
     def __init__(self, master, room, image_on, text_button_on, image_off, text_button_off, tap_toggle_handler = None):
@@ -28,15 +29,14 @@ class ToggleButton(Label):
     def __toggle(self, event):
         if self.fan_on == False:
             self.fan_on = True
-            self.button.configure(bg=self.Constants.color_on, text=self.__text_on)
+            self.button.configure(bg = self.Constants.color_on, text = self.__text_on)
             instruction = "{}_on".format(self.__room)
         else:
             self.fan_on = False
-            self.button.configure(bg=self.Constants.color_off, text=self.__text_off)
+            self.button.configure(bg = self.Constants.color_off, text = self.__text_off)
             instruction = "{}_off".format(self.__room)
         #image = self.__on_image if self.fan_on else self.__off_image
         #self.__set_image(image)
         if self.__tap_toggle_handler is None:
             return
         self.__tap_toggle_handler(instruction)
-

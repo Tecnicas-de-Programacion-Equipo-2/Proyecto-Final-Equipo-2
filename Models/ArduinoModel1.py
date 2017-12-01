@@ -5,7 +5,7 @@ from serial import Serial
 class ArduinoModel1():
 
     class Constants:
-        port = 'COM4'
+        port = 'COM5'
         encode = 'ascii'
 
         baud = 115200
@@ -21,8 +21,8 @@ class ArduinoModel1():
         self.__temperature_room2 = temperature_room2
 
         self.__functions = {
-            Functions.UpdateClock: self.__update_clock,
-            Functions.Close: self.__close,
+            Functions.UpdateClockArduino1: self.__update_clock,
+            Functions.CloseArduino1: self.__close,
         }
 
     def __update_clock(self):
@@ -38,7 +38,6 @@ class ArduinoModel1():
         try:
             temperature_room1 = int(clean_values[0])
             temperature_room2 = int(clean_values[1])
-            data2 = str(clean_values[2])
         except Exception:
             return
         self.__temperature_room1.update_temperatures(temperature_room1)

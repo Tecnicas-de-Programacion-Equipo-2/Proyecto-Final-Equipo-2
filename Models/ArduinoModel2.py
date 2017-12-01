@@ -6,7 +6,7 @@ class ArduinoModel2():
     class Constants:
         port = 'COM5'
 
-        baud = 115200
+        baud = 9600
 
     def __init__(self, master, change_password, house_acces=None):
         for port in list_ports.comports():
@@ -18,8 +18,8 @@ class ArduinoModel2():
         self.__arduino = Serial(self.Constants.port, self.Constants.baud)
 
         self.__functions = {
-            Functions.UpdateClock: self.__update_clock,
-            Functions.Close: self.__close,
+            Functions.UpdateClockArduino2: self.__update_clock,
+            Functions.CloseArduino2: self.__close,
         }
 
     def __update_clock(self):
@@ -41,7 +41,6 @@ class ArduinoModel2():
 
     def send_led_values(self, instruction):
         self.__arduino.write(instruction)
-        print(instruction)
 
     def __close(self):
         self.__arduino.close()
