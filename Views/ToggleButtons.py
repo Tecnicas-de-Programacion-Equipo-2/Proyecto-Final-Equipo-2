@@ -14,7 +14,7 @@ class ToggleButton(Label):
         self.__tap_toggle_handler = tap_toggle_handler
         self.__text_on = text_button_on
         self.__text_off = text_button_off
-        #self.__on_image = PhotoImage(file = 'Assets/on.ppm')
+        #self.__on_image = PhotoImage(file = '..\Assets\on.ppm')
         #self.__off_image = PhotoImage(file = image_off)
         #self.__set_image(self.__off_image)
 

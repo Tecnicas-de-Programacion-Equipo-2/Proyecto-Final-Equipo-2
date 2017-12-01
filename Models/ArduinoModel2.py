@@ -4,7 +4,7 @@ from serial import Serial
 
 class ArduinoModel2():
     class Constants:
-        port = 'COM5'
+        port = 'COM10'
 
         baud = 115200
 
