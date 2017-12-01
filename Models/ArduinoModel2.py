@@ -28,7 +28,7 @@ class ArduinoModel2():
         except UnicodeDecodeError:
             data = '0'
         self.__handle_data(data)
-        self.__master.after(1, self.__update_clock)
+        self.__master.after(5, self.__update_clock)
 
     def __handle_data(self, data):
         try:
