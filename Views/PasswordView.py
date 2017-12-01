@@ -1,6 +1,6 @@
 from tkinter import Frame, Label, Button, Entry, N, S, E, W
 from CustomType.View import View
-from CustomType.Passwords import ChargePasswords
+from CustomType.Passwords import ChangePasswords
 
 class PasswordView(Frame):
 

@@ -28,9 +28,23 @@ void loop() {
   int temperature_room1 = sensor_room1.readTemperature();
   //int temperature_room2 = sensor_room2.readTemperature();
   
-  if(Serial.available()) {
-    data = String(Serial.readString());
+  sendData(temperature_room1, false);
+  sendData(temperature_room1, true);
+}
+
+void sendData(int value, bool is_complete) {
+  Serial.print(value);
+  if (is_complete) {
+    Serial.print("\n");
   }
+  else {
+    Serial.print(", ");
+  }
+}
+
+void serialEvent(){
+  String data = Serial.readString();
+  
   if(data == "1_on") {
       digitalWrite(MOTOR1LEFT, HIGH);
       digitalWrite(MOTOR1RIGHT, HIGH);
@@ -46,18 +60,5 @@ void loop() {
   if(data == "2_off") {
     digitalWrite(MOTOR2LEFT, LOW);
     digitalWrite(MOTOR2RIGHT, LOW);
-  }
-  
-  sendData(temperature_room1, false);
-  sendData(temperature_room1, true);
-}
-
-void sendData(int value, bool is_complete) {
-  Serial.print(value);
-  if (is_complete) {
-    Serial.print("\n");
-  }
-  else {
-    Serial.print(", ");
   }
 }

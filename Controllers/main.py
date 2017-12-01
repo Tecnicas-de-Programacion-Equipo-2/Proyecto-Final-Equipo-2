@@ -27,10 +27,10 @@ class MainApp():
         self.home = HomeView(self.__master.container, change_view_handler = self.__did_change_view)
 
         self.room1 = TemperatureController(self.__master.container, self.__did_change_view,
-                                                       self.Constants.room_1, room_handler = self.__update_fan,
+                                           self.Constants.room_1, room_handler = self.__update_fan,
                                            slider_handler = self.__change_value_slider)
         self.room2 = TemperatureController(self.__master.container, self.__did_change_view,
-                                                       self.Constants.room_2, room_handler = self.__update_fan,
+                                           self.Constants.room_2, room_handler = self.__update_fan,
                                            slider_handler = self.__change_value_slider)
         self.room3 = Room3View(self.__master.container, change_view_handler = self.__did_change_view,
                                slider_handler = self.__change_value_slider)
@@ -56,13 +56,13 @@ class MainApp():
         self.__did_change_view(View.Home)
 
     def run(self):
-        self.__arduino_1.function(Functions.UpdateClock)
-        #self.__arduino_2.function(Functions.UpdateClock)
+        self.__arduino_1.function(Functions.UpdateClockArduino1)
+        self.__arduino_2.function(Functions.UpdateClockArduino2)
         self.__master.mainloop()
 
     def __on_closing(self):
-        self.__arduino_1.function(Functions.Close)
-        #self.__arduino_2.function(Functions.Close)
+        self.__arduino_1.function(Functions.CloseArduino1)
+        self.__arduino_2.function(Functions.CloseArduino2)
         self.__master.destroy()
 
     def __did_change_view(self, view):
@@ -76,6 +76,7 @@ class MainApp():
         self.__arduino_2.send_led_values(self.__led_instruction)
 
     def __update_fan(self, instruction):
+        print(instruction)
         self.__arduino_1.turn_fan(instruction)
 
 if __name__ == "__main__":
