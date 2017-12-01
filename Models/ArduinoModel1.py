@@ -10,7 +10,7 @@ class ArduinoModel1():
 
         baud = 115200
 
-    def __init__(self, master, room1_model, room2_model, home):
+    def __init__(self, master, room1_model, room2_model, fire_model, distance_model):
         for port in list_ports.comports():
             print(port.device, port.name, port.description)
 
@@ -20,7 +20,8 @@ class ArduinoModel1():
         self.__room1_model = room1_model
         self.__room2_model = room2_model
 
-        self.__home = home
+        self.__fire_model = fire_model
+        self.__distance_model = distance_model
 
         self.__functions = {
             Functions.UpdateClockArduino1: self.__update_clock,
@@ -47,9 +48,9 @@ class ArduinoModel1():
             return
         self.__room1_model.update_temperatures(temperature_room1)
         self.__room2_model.update_temperatures(temperature_room2)
-        self.__home.update_humidity(humidity_room1)
-        self.__home.update_humidity(humidity_room2)
-        self.__home.update_distance(distance_alarm)
+        self.__fire_model.update_humidity(humidity_room1)
+        self.__fire_model.update_humidity(humidity_room2)
+        self.__distance_model.update_distance(distance_alarm)
 
     def __close(self):
         self.__arduino.close()

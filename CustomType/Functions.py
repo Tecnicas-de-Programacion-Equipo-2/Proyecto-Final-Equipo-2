@@ -6,3 +6,5 @@ class Functions(Enum):
     UpdateClockArduino2 = 'update_clock_arduino'
     CloseArduino2 = 'close_arduino'
     TurnFan = 'turn_fan'
+    FireAlert = 'fire_alert'
+    CeaseFireAlert = 'cease_fire_alert'

@@ -2,6 +2,8 @@ from CustomType.Functions import Functions
 from CustomType.View import View
 from Models.ArduinoModel1 import ArduinoModel1
 from Models.LEDModel import LEDModel
+from Models.DistanceModel import DistanceModel
+from Models.FireModel import FireModel
 from Models.TemperatureModel import TemperatureModel
 from Views.ChangepasswordView import Changepassword
 from Views.ContainerView import ContainerView
@@ -41,10 +43,13 @@ class MainApp():
         self.__room1_model = TemperatureModel(self.room1, room_handler = self.__update_fan)
         self.__room2_model = TemperatureModel(self.room2, room_handler = self.__update_fan)
 
-        self.__arduino_1 = ArduinoModel1(self.__master, self.__room1_model, self.__room2_model, self.home)
-        #self.__arduino_2 = ArduinoModel2(self.__master, self.changepassword, house_acces = self.password.try_card)
-
+        self.__fire_model = FireModel(self.home)
+        self.__distance_model = DistanceModel(self.home)
         self.__led = LEDModel()
+
+        self.__arduino_1 = ArduinoModel1(self.__master, self.__room1_model, self.__room2_model,
+                                         self.__fire_model, self.__distance_model)
+        # self.__arduino_2 = ArduinoModel2(self.__master, self.changepassword, house_acces = self.password.try_card)
 
         self.__frames = {
             View.Password: self.password,
