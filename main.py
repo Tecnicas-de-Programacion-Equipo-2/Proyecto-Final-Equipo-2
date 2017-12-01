@@ -1,6 +1,7 @@
 from CustomType.Functions import Functions
 from CustomType.View import View
 from Models.ArduinoModel1 import ArduinoModel1
+from Models.ArduinoModel2 import ArduinoModel2
 from Models.LEDModel import LEDModel
 from Models.DistanceModel import DistanceModel
 from Models.FireModel import FireModel
@@ -52,7 +53,7 @@ class MainApp():
 
         self.__arduino_1 = ArduinoModel1(self.__master, self.__room1_model, self.__room2_model,
                                          self.__fire_model, self.__distance_model)
-        # self.__arduino_2 = ArduinoModel2(self.__master, self.changepassword, house_acces = self.password.try_card)
+        self.__arduino_2 = ArduinoModel2(self.__master, self.changepassword, house_acces = self.password.try_card)
 
         self.__frames = {
             View.Password: self.password,
@@ -69,12 +70,12 @@ class MainApp():
 
     def run(self):
         self.__arduino_1.function(Functions.UpdateClockArduino1)
-        #self.__arduino_2.function(Functions.UpdateClockArduino2)
+        self.__arduino_2.function(Functions.UpdateClockArduino2)
         self.__master.mainloop()
 
     def __on_closing(self):
         self.__arduino_1.function(Functions.CloseArduino1)
-        #self.__arduino_2.function(Functions.CloseArduino2)
+        self.__arduino_2.function(Functions.CloseArduino2)
         self.__master.destroy()
 
     def __did_change_view(self, view):
@@ -85,7 +86,7 @@ class MainApp():
         Data = [room, value]
         self.__led.read_brightness(Data)
         self.__led_instruction = self.__led.get_instruction
-        #self.__arduino_2.send_led_values(self.__led_instruction)
+        self.__arduino_2.send_led_values(self.__led_instruction)
 
     def __update_fan(self, instruction):
         self.__arduino_1.turn_fan(instruction)
