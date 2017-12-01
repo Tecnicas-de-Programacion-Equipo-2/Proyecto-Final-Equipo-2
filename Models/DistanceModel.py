@@ -9,4 +9,7 @@ class DistanceModel():
         self.__home = home
 
     def update_distance(self, distance):
-        pass
+        if distance < self.Constants.minimum_distance:
+            self.__home.function(Functions.IntruderAlert)
+        else:
+            self.__home.function(Functions.CeaseIntruderAlert)

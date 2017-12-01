@@ -8,3 +8,5 @@ class Functions(Enum):
     TurnFan = 'turn_fan'
     FireAlert = 'fire_alert'
     CeaseFireAlert = 'cease_fire_alert'
+    IntruderAlert = 'intruder_alert'
+    CeaseIntruderAlert = 'cease_intruder_alert'

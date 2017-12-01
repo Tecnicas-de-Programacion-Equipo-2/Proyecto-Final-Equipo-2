@@ -12,8 +12,9 @@ class HomeView(Frame):
         room_4 = 'Habitacion 4'
         change = 'Change password or add tag'
         fg = '#d80808'
-        alert_text = 'FIRE DETECTED'
-        no_fire = ''
+        alert_fire = 'FIRE DETECTED'
+        alert_intruder = 'INTRUDER DETECTED'
+        no_alert = ''
 
         pad_backend = 10
 
@@ -26,15 +27,20 @@ class HomeView(Frame):
 
         self.__functions = {
             Functions.FireAlert: self.__fire_alert,
-            Functions.CeaseFireAlert: self.__cease_fire_alert
+            Functions.CeaseFireAlert: self.__cease_fire_alert,
+            Functions.IntruderAlert: self.__intruder_alert,
+            Functions.CeaseIntruderAlert: self.__cease_intruder_alert
         }
 
     def __configure_home_UI(self):
         label = Label(self, text = self.Constants.home)
         label.pack(pady = self.Constants.pad_backend, padx = self.Constants.pad_backend)
 
-        self.__alert_fire = Label(self, text = self.Constants.no_fire)
+        self.__alert_fire = Label(self, text = self.Constants.no_alert)
         self.__alert_fire.pack(padx = self.Constants.pad_backend, pady = self.Constants.pad_backend)
+
+        self.__alert_intruder = Label(self, text = self.Constants.no_alert)
+        self.__alert_intruder.pack(padx = self.Constants.pad_backend, pady = self.Constants.pad_backend)
 
         button = Button(self, text = self.Constants.room_1,
                         command = lambda: self.__did_tap_change_button(View.Room1))
@@ -54,10 +60,16 @@ class HomeView(Frame):
         change_password_button.pack()
 
     def __fire_alert(self):
-        self.__alert_fire.configure(text = self.Constants.alert_text, fg = self.Constants.fg)
+        self.__alert_fire.configure(text = self.Constants.alert_fire, fg = self.Constants.fg)
 
     def __cease_fire_alert(self):
-        self.__alert_fire.configure(text = self.Constants.no_fire)
+        self.__alert_fire.configure(text = self.Constants.no_alert)
+
+    def __intruder_alert(self):
+        self.__alert_intruder.configure(text = self.Constants.alert_intruder, fg = self.Constants.fg)
+
+    def __cease_intruder_alert(self):
+        self.__alert_intruder.configure(text = self.Constants.no_alert)
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:

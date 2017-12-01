@@ -19,7 +19,6 @@ class ArduinoModel1():
 
         self.__room1_model = room1_model
         self.__room2_model = room2_model
-
         self.__fire_model = fire_model
         self.__distance_model = distance_model
 
@@ -37,6 +36,7 @@ class ArduinoModel1():
         self.__master.after(5, self.__update_clock)
 
     def __handle_data(self, data):
+        print(data)
         clean_values = data.strip(' \n\r').split(', ')
         try:
             temperature_room1 = int(clean_values[0])
