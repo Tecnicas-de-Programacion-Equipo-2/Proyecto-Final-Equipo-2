@@ -3,7 +3,7 @@ from CustomType.Functions import Functions
 class FireModel():
 
     class Constants:
-        minimum_humidity = 5
+        minimum_humidity = -5
 
     def __init__(self, home):
         self.__home = home

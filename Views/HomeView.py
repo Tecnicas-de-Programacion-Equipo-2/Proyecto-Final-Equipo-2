@@ -29,7 +29,7 @@ class HomeView(Frame):
         self.__last_fire_alert = False
         self.__last_intruder_alert = False
 
-        self.__phone = '5548557963'
+        self.__phone = '+525548557963'
 
         self.__configure_home_UI()
 
@@ -81,7 +81,7 @@ class HomeView(Frame):
     def __intruder_alert(self):
         self.__intruder = True
         if self.__last_intruder_alert == self.__intruder: return
-        #self.__send(self.Constants.intruder_SMS)
+        self.__send(self.Constants.intruder_SMS)
         self.__last_intruder_alert = self.__intruder
         self.__alert_intruder.configure(text = self.Constants.alert_intruder, fg = self.Constants.fg)
 
