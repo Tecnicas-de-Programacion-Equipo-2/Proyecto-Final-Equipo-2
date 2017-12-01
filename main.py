@@ -90,8 +90,7 @@ class MainApp():
         self.__arduino_2.send_led_values(self.__led_instruction)
 
     def __update_fan(self, instruction):
-        #self.__arduino_1.turn_fan(instruction)
-        pass
+        self.__arduino_1.turn_fan(instruction)
 
     def __update_door(self, instruction):
         self.__arduino_2.change_door(instruction)
