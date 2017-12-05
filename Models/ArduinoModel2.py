@@ -6,8 +6,8 @@ class ArduinoModel2():
     class Constants:
         port = 'COM9'
         encode = 'ascii'
-        baud = 115200
 
+        baud = 115200
 
     def __init__(self, master, change_password, house_acces=None):
         for port in list_ports.comports():
@@ -42,11 +42,12 @@ class ArduinoModel2():
             return
 
     def send_led_values(self, instruction):
+        instruction = instruction + self.__door_position
         self.__arduino.write(instruction)
 
     def change_door(self, instruction):
         change_position = str(instruction).encode(self.Constants.encode)
-        self.__arduino.write(change_position)
+        self.__door_position = change_position
 
     def __close(self):
         self.__arduino.close()

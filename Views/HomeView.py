@@ -108,4 +108,4 @@ class HomeView(Frame):
         self.__send_handler(self.__phone, message)
 
     def __close(self):
-        self.__close_door("DoorC")
+        self.__close_door('DoorC')

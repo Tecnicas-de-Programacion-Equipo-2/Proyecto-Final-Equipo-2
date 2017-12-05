@@ -18,6 +18,7 @@ class Changepassword(Frame):
         new_password = 'Introduce la nueva contraseña y presiona enter'
         color2 = 'lightslategray'
         enter = 'Enter'
+        new_tag = 'New tag added'
 
         pad_backend = 10
 
@@ -67,7 +68,7 @@ class Changepassword(Frame):
             self.__password_input.delete(0, 'end')
             if self.__confirmation == False:
                 self.__enter_button = Button(self, bg = self.Constants.color2, text = self.Constants.enter,
-                                             command=self.__send_password)
+                                             command = self.__send_password)
                 self.__enter_button.pack()
             self.__confirmation = True
         else:
@@ -77,11 +78,11 @@ class Changepassword(Frame):
     def new_card(self, password):
         if self.__add == True:
             new = {
-                "type": "card",
-                "password": password
+                'type': 'card',
+                'password': password
             }
             ChangePasswords.new_card(new)
-            self.label_description.configure(bg=self.Constants.color1, text="New tag added")
+            self.label_description.configure(bg=self.Constants.color1, text = self.Constants.new_tag)
             self.__add = False
 
     def __send_password(self):

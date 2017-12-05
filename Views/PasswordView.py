@@ -69,5 +69,5 @@ class PasswordView(Frame):
     def try_card(self, password):
         if ChangePasswords.validation(password):
             self.__change_view_handler(View.Home)
-            self.__open_door("DoorO")
+            self.__open_door('DoorO')
         else: return
